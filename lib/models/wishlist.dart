@@ -14,6 +14,11 @@ class WishList extends ChangeNotifier {
     notifyListeners();
   }
 
+  void editWish(Wish wish) {
+    wish.updateWish(wish.title, wish.description);
+    notifyListeners();
+  }
+
   void removeWish(Wish wish) {
     _wishes.remove(wish);
     notifyListeners();

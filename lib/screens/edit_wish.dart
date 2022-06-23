@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wish_pool/models/wish.dart';
+import 'package:wish_pool/models/wishlist.dart';
 
 class EditWish extends StatelessWidget {
   static const routeName = '/edit_wish';
   final GlobalKey<FormState> _formKey = GlobalKey();
+
   EditWish({Key? key}) : super(key: key);
 
   @override
@@ -11,14 +14,15 @@ class EditWish extends StatelessWidget {
     Wish wish = ModalRoute.of(context)!.settings.arguments as Wish;
     String title = '';
     String description = '';
-
     void updateWish() {
       if (!_formKey.currentState!.validate()) {
         return;
       }
 
       _formKey.currentState!.save();
-      wish.updateWish(title, description);
+      wish.title = title;
+      wish.description = description;
+      Provider.of<WishList>(context, listen: false).editWish(wish);
       Navigator.of(context).pop();
     }
 
