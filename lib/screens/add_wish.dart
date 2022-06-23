@@ -3,36 +3,36 @@ import 'package:wish_pool/models/wish.dart';
 import 'package:wish_pool/models/wishlist.dart';
 import 'package:wish_pool/screens/home.dart';
 
-class AddWish extends StatefulWidget {
-  const AddWish(this.wishes, {Key? key}) : super(key: key);
+import 'package:provider/provider.dart';
+
+class AddWish extends StatelessWidget {
   static const routeName = '/add_wish';
-
-  final WishList wishes;
-
-  @override
-  State<AddWish> createState() => _AddWishState();
-}
-
-class _AddWishState extends State<AddWish> {
-  String title = '';
-  String description = '';
 
   final GlobalKey<FormState> _formKey = GlobalKey();
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
 
-  void submit() {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-
-    _formKey.currentState!.save();
-    widget.wishes.addWish(Wish(title, description));
-    Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
-  }
+  AddWish({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String title = '';
+    String description = '';
+
+    void submit() {
+      if (!_formKey.currentState!.validate()) {
+        return;
+      }
+
+      _formKey.currentState!.save();
+
+      Provider.of<WishList>(context, listen: false).addWish(Wish()
+        ..title = title
+        ..description = description);
+      Navigator.of(context).pop();
+      // Navigator.of(context).pushNamed(HomeScreen.routeName);
+    }
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(

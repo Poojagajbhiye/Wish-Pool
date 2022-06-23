@@ -3,16 +3,25 @@ import 'package:wish_pool/screens/add_wish.dart';
 import 'package:wish_pool/screens/edit_wish.dart';
 import 'package:wish_pool/screens/home.dart';
 
+import 'package:provider/provider.dart';
+
 import 'models/wishlist.dart';
+import 'models/wish.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => Wish()),
+        ChangeNotifierProvider(create: (context) => WishList()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
-
-  final WishList wishPool = WishList();
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +31,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SafeArea(
-        child: HomeScreen(wishPool),
+      home: const SafeArea(
+        child: HomeScreen(),
       ),
       routes: {
-        HomeScreen.routeName: (context) => HomeScreen(wishPool),
-        AddWish.routeName: (context) => AddWish(wishPool),
-        EditWish.routeName: (context) => const EditWish(),
+        HomeScreen.routeName: (context) => const HomeScreen(),
+        AddWish.routeName: (context) => AddWish(),
+        EditWish.routeName: (context) => EditWish(),
       },
     );
   }

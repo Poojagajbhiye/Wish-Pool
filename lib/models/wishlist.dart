@@ -1,20 +1,21 @@
+import 'package:flutter/cupertino.dart';
+
 import 'wish.dart';
 
-class WishList {
-  List<Wish> wishes = <Wish>[
-    Wish("Sunglasses", "sample description of sunglasses."),
-    Wish("Shoes", "sample description of shoes."),
-    Wish("Maldives", "sample description of maldives."),
-    Wish("Maldives", "sample description of maldives."),
-    Wish("Maldives", "sample description of maldives."),
-    Wish("Maldives", "sample description of maldives."),
-  ];
+class WishList extends ChangeNotifier {
+  final List<Wish> _wishes = <Wish>[];
+
+  List<Wish> get allWishes => _wishes;
+
+  int get totalWishes => _wishes.length;
 
   void addWish(Wish wish) {
-    wishes.add(wish);
+    _wishes.add(wish);
+    notifyListeners();
   }
 
   void removeWish(Wish wish) {
-    wishes.remove(wish);
+    _wishes.remove(wish);
+    notifyListeners();
   }
 }

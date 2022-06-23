@@ -1,24 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:wish_pool/models/wish.dart';
-import 'package:wish_pool/screens/home.dart';
 
-class EditWish extends StatefulWidget {
-  const EditWish({Key? key}) : super(key: key);
+class EditWish extends StatelessWidget {
   static const routeName = '/edit_wish';
-
-  @override
-  State<EditWish> createState() => _EditWishState();
-}
-
-class _EditWishState extends State<EditWish> {
-  String title = '';
-  String description = '';
-
   final GlobalKey<FormState> _formKey = GlobalKey();
+  EditWish({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Wish wish = ModalRoute.of(context)!.settings.arguments as Wish;
+    String title = '';
+    String description = '';
 
     void updateWish() {
       if (!_formKey.currentState!.validate()) {
@@ -27,7 +19,7 @@ class _EditWishState extends State<EditWish> {
 
       _formKey.currentState!.save();
       wish.updateWish(title, description);
-      Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+      Navigator.of(context).pop();
     }
 
     return SafeArea(

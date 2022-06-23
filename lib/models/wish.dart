@@ -1,12 +1,19 @@
-class Wish {
-  String title;
-  String description;
+import 'package:flutter/cupertino.dart';
+
+class Wish extends ChangeNotifier {
+  String title = "";
+  String description = "";
   //TODO: Add image property
 
-  Wish(this.title, this.description);
+  String get wishTitle => title;
+  String get wishDescription => description;
 
-  void updateWish(String title, String description) {
-    this.title = title;
-    this.description = description;
+  set wishTitle(String ttl) => title = ttl;
+  set wishDescription(String desc) => description = desc;
+
+  void updateWish(String ttl, String desc) {
+    title = ttl;
+    description = desc;
+    notifyListeners();
   }
 }
