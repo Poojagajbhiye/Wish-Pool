@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
-
-class Wish extends ChangeNotifier {
+class Wish {
   String title = "";
   String description = "";
   //TODO: Add image property
@@ -14,6 +12,5 @@ class Wish extends ChangeNotifier {
   void updateWish(String ttl, String desc) {
     title = ttl;
     description = desc;
-    notifyListeners();
   }
 }
