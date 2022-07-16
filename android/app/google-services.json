@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "822716451331",
+    "project_id": "wish-pool-20ed1",
+    "storage_bucket": "wish-pool-20ed1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:822716451331:android:de9b356fcb30d6817c9c36",
+        "android_client_info": {
+          "package_name": "com.example.wish_pool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "822716451331-s4cg4q6l39t8sc0g36a0i9qj9i6kpi6g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlX8kbJXmRStQO7LD7q8ASRI-NrLyX0wU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "822716451331-s4cg4q6l39t8sc0g36a0i9qj9i6kpi6g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "822716451331-7a00btebei9356ppchvosjooucdrfkf0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.wishPool"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

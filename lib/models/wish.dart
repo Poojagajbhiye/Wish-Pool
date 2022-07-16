@@ -1,7 +1,11 @@
 class Wish {
+  //TODO: Add wish ID
   String title = "";
   String description = "";
   //TODO: Add image property
+  //TODO: Add wish category
+  //TODO: Add shared category
+  //TODO: Add fulfilled boolean property
 
   String get wishTitle => title;
   String get wishDescription => description;

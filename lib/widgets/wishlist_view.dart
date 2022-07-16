@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../models/wishlist.dart';
+import '../models/wisher.dart';
 import '../screens/edit_wish.dart';
 
 class WishlistView extends StatelessWidget {
@@ -9,9 +9,9 @@ class WishlistView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<WishList>(
-      builder: (context, wishes, child) => ListView.builder(
-        itemCount: wishes.totalWishes,
+    return Consumer<Wisher>(
+      builder: (context, wisher, _) => ListView.builder(
+        itemCount: wisher.totalWishes,
         itemBuilder: ((context, index) => Card(
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -21,8 +21,8 @@ class WishlistView extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(wishes.allWishes[index].title),
-                        Text(wishes.allWishes[index].description),
+                        Text(wisher.allWishes[index].title),
+                        Text(wisher.allWishes[index].description),
                       ],
                     ),
                     Row(
@@ -33,7 +33,7 @@ class WishlistView extends StatelessWidget {
                             Navigator.pushNamed(
                               context,
                               EditWish.routeName,
-                              arguments: wishes.allWishes[index],
+                              arguments: wisher.allWishes[index],
                             );
                           },
                           icon: const Icon(
@@ -48,7 +48,7 @@ class WishlistView extends StatelessWidget {
                             Icons.delete,
                           ),
                           onPressed: () =>
-                              wishes.removeWish(wishes.allWishes[index]),
+                              wisher.removeWish(wisher.allWishes[index]),
                         ),
                       ],
                     ),

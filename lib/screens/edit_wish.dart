@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wish_pool/models/wish.dart';
-import 'package:wish_pool/models/wishlist.dart';
+
+import '../models/wisher.dart';
 
 class EditWish extends StatelessWidget {
   static const routeName = '/edit_wish';
@@ -22,7 +23,7 @@ class EditWish extends StatelessWidget {
       _formKey.currentState!.save();
       wish.title = title;
       wish.description = description;
-      Provider.of<WishList>(context, listen: false).editWish(wish);
+      Provider.of<Wisher>(context, listen: false).editWish(wish);
       Navigator.of(context).pop();
     }
 
