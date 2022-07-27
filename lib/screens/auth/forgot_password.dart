@@ -19,12 +19,12 @@ class ForgotPassword extends StatelessWidget {
       );
 
       try {
-        print(_emailController.text.trim());
         await FirebaseAuth.instance.sendPasswordResetEmail(
           email: _emailController.text.trim(),
         );
 
-        Utils.showSnackBar("Please check email for reseting the password.");
+        Utils.showSnackBar(
+            "Please check email for reseting the password. Do check inside spam as well.");
         Navigator.of(context).popUntil((route) => route.isFirst);
       } on FirebaseAuthException catch (e) {
         Utils.showSnackBar(e.message);

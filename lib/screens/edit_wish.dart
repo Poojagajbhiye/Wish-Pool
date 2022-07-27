@@ -29,20 +29,6 @@ class EditWish extends StatelessWidget {
       Navigator.of(context).pop();
     }
 
-    // Future<String?> wishTitle() async {
-    //   final title = await Provider.of<Wisher>(context)
-    //       .getWishByID(id: wish.id)
-    //       .then((wish) => wish['title']);
-    //   return title;
-    // }
-
-    // Future<String?> wishDescritption() async {
-    //   return Provider.of<Wisher>(context)
-    //       .getWishByID(id: wishId)
-    //       .then((wish) => wish['description']);
-    //   // return wish['description'];
-    // }
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
