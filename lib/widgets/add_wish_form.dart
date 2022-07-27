@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wish_pool/models/wish.dart';
-import 'package:wish_pool/models/wishlist.dart';
+
+import '../models/wisher.dart';
 
 class AddWishForm extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey();
@@ -11,8 +11,8 @@ class AddWishForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String title = '';
-    String description = '';
+    late String title;
+    late String description;
 
     void submit() {
       if (!_formKey.currentState!.validate()) {
@@ -21,9 +21,10 @@ class AddWishForm extends StatelessWidget {
 
       _formKey.currentState!.save();
 
-      Provider.of<WishList>(context, listen: false).addWish(Wish()
-        ..title = title
-        ..description = description);
+      Provider.of<Wisher>(context, listen: false).addWish(
+        wishTitle: title,
+        wishDescription: description,
+      );
       Navigator.of(context).pop();
     }
 
