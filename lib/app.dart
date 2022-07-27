@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 import 'package:wish_pool/screens/auth/auth.dart';
 import 'package:wish_pool/screens/profile.dart';
 
+import 'models/wisher.dart';
 import 'screens/add_wish.dart';
 import 'screens/edit_wish.dart';
 import 'screens/home.dart';
@@ -19,7 +21,6 @@ class MyApp extends StatelessWidget {
       scaffoldMessengerKey: Utils.messengerKey,
       debugShowCheckedModeBanner: false,
       navigatorKey: navigatorKey,
-      title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
+                  //TODO: Have a Splash screen instead.
                   child: CircularProgressIndicator(),
                 );
               } else if (snapshot.hasError) {
@@ -36,14 +38,26 @@ class MyApp extends StatelessWidget {
                   child: Text("Something went wrong."),
                 );
               } else if (snapshot.hasData) {
-                return const HomeScreen();
+                return FutureBuilder(
+                    future: Provider.of<Wisher>(context, listen: false)
+                        .init(snapshot.data!.uid),
+                    builder: (context, futureSnap) {
+                      if (futureSnap.hasData) {
+                        return const HomeScreen();
+                      } else {
+                        return const Center(
+                          //TODO: Have a Splash screen instead.
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    });
               } else {
+                //TODO: Return IntroScreen instead
                 return const Auth();
               }
             }),
       ),
       routes: {
-        // LogIn.routeName: (context) => LogIn(),
         HomeScreen.routeName: (context) => const HomeScreen(),
         WisherProfile.routeName: (context) => const WisherProfile(),
         AddWish.routeName: (context) => const AddWish(),

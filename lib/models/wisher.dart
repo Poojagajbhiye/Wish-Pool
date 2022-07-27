@@ -1,76 +1,122 @@
 import 'package:flutter/cupertino.dart';
 import 'package:wish_pool/models/wish.dart';
-
-// import 'wishlist.dart';
-import 'wish.dart';
+import 'package:wish_pool/services/firebase_services.dart';
 
 class Wisher with ChangeNotifier {
-  String _wisherID = "";
-  String _wisherName = "";
-  String _wisherPic = "";
-  final List<String> _friends = [];
-  final List<Wish> _wishes = [];
-  bool changeWisherName = false;
-  bool changeWisherPic = false;
+  String? id;
+  String? name;
+  String? picture;
+  List<String> friends = [];
+  List<Wish> wishes = [];
+  bool changeName = false;
+  bool changePicture = false;
 
-  String get userID => _wisherID;
-  String get userName => _wisherName;
-  String get userPic => _wisherPic;
-  List<Wish> get allWishes => _wishes;
-  int get totalWishes => _wishes.length;
+  Future<String?> init([String? newWisherId]) async {
+    var allData = await fetchAllData(newWisherId);
 
-  void createWisher(String wisherID, String wisherName) {
-    _wisherID = wisherID;
-    _wisherName = wisherName;
-    //create default user picture
+    if (allData != null) {
+      id = allData['id'];
+      name = allData['name'];
+      picture = allData['picture'];
+      wishes = [];
+      friends = [];
+
+      for (var wish in allData['wishes']) {
+        wishes.add(Wish(
+          id: wish['id'].toString(),
+          title: wish['title'].toString(),
+          description: wish['description'].toString(),
+        ));
+      }
+
+      for (var friend in allData['friends']) {
+        friends.add(friend.toString());
+      }
+    }
+    return id;
+  }
+
+  void addWish({
+    required String wishTitle,
+    required String wishDescription,
+  }) async {
+    final wish = Wish(
+      id: DateTime.now().toString(),
+      title: wishTitle,
+      description: wishDescription,
+    );
+    wishes.add(wish);
+    await addWishToDb(wish: wish.toJson());
+    notifyListeners();
+  }
+
+  void addWisher({
+    required String wisherId,
+    required String wisherName,
+  }) async {
+    id = wisherId;
+    name = wisherName;
+
+    await addWisherToDb(
+      wisherId: id,
+      wisherName: name,
+      wisherPicture: picture,
+      wishes: wishes,
+      friends: friends,
+    );
     notifyListeners();
   }
 
   void changeWisherNameToggle() {
-    changeWisherName = !changeWisherName;
+    changeName = !changeName;
     notifyListeners();
   }
 
   void changeWisherPicToggle() {
-    changeWisherPic = !changeWisherName;
+    changePicture = !changePicture;
     notifyListeners();
   }
 
-  void updateWisherName(String newWisherName) {
-    _wisherName = newWisherName;
-    changeWisherName = !changeWisherName;
+  void removeWish({required Wish wish}) async {
+    wishes.remove(wish);
+    await removeWishFromDb(wish: wish.toJson());
     notifyListeners();
   }
 
-  void updateWisherPicture(String newWisherPicture) {
-    _wisherPic = newWisherPicture;
-    changeWisherPic = !changeWisherPic;
+  void updateWish({
+    required String wishId,
+    required String wishTitle,
+    required String wishDescription,
+  }) async {
+    final wish = wishes.firstWhere((wish) => wish.id == wishId);
+    await removeWishFromDb(wish: wish.toJson());
+    wish.title = wishTitle;
+    wish.description = wishDescription;
+    await updateWishToDb(wish: wish.toJson());
     notifyListeners();
   }
 
-  void addWish(Wish wish) {
-    // wishes.addWish(wish);
-    _wishes.add(wish);
+  void updateWisherName(String wisherName) async {
+    name = wisherName;
+    await updateNameToDb(wisherName: wisherName);
+    changeName = !changeName;
     notifyListeners();
   }
 
-  void editWish(Wish wish) {
-    wish.updateWish(wish.title, wish.description);
+  void uploadWisherPic() async {
+    var imageFilename = DateTime.now().millisecondsSinceEpoch.toString();
+    final path = 'user_pictures/$id/dp/$imageFilename';
+    picture = await updatePictureToDb(path: path);
     notifyListeners();
   }
 
-  void removeWish(Wish wish) {
-    _wishes.remove(wish);
-    notifyListeners();
-  }
+  // void addFriend(String newfriend) {
+  //   friends.add(newfriend);
+  //   notifyListeners();
+  // }
 
-  void addFriend(String newfriend) {
-    _friends.add(newfriend);
-    notifyListeners();
-  }
-
-  void addFriends(List<String> newfriends) {
-    _friends.addAll(newfriends);
-    notifyListeners();
-  }
+  // void addFriends(List<String> newfriends) {
+  //   friends.addAll(newfriends);
+  //   notifyListeners();
+  // }
 }

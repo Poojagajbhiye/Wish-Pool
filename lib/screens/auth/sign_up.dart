@@ -1,11 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart' hide User;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:wish_pool/app.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:wish_pool/models/wisher.dart';
 import 'package:wish_pool/utility/utils.dart';
+
+import '../../models/wisher.dart';
 
 class SignUp extends StatelessWidget {
   final VoidCallback logIn;
@@ -20,15 +22,15 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void addWisher(wisher) {
-      Provider.of<Wisher>(context, listen: false)
-          .createWisher(wisher.user!.uid, wisher.user!.email as String);
+      Provider.of<Wisher>(context, listen: false).addWisher(
+        wisherId: wisher.user!.uid,
+        wisherName: wisher.user!.email as String,
+      );
     }
 
     Future<void> _signUp() async {
       bool isValid = _formKey.currentState!.validate();
       if (!isValid) return;
-
-      // _formKey.currentState!.save();
 
       showDialog(
         context: context,

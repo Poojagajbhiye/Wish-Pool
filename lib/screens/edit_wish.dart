@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wish_pool/models/wish.dart';
 
+import '../models/wish.dart';
 import '../models/wisher.dart';
 
 class EditWish extends StatelessWidget {
@@ -12,20 +12,36 @@ class EditWish extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Wish wish = ModalRoute.of(context)!.settings.arguments as Wish;
-    String title = '';
-    String description = '';
+    final wish = ModalRoute.of(context)!.settings.arguments as Wish;
+    late String title;
+    late String description;
     void updateWish() {
       if (!_formKey.currentState!.validate()) {
         return;
       }
 
       _formKey.currentState!.save();
-      wish.title = title;
-      wish.description = description;
-      Provider.of<Wisher>(context, listen: false).editWish(wish);
+      Provider.of<Wisher>(context, listen: false).updateWish(
+        wishId: wish.id,
+        wishTitle: title,
+        wishDescription: description,
+      );
       Navigator.of(context).pop();
     }
+
+    // Future<String?> wishTitle() async {
+    //   final title = await Provider.of<Wisher>(context)
+    //       .getWishByID(id: wish.id)
+    //       .then((wish) => wish['title']);
+    //   return title;
+    // }
+
+    // Future<String?> wishDescritption() async {
+    //   return Provider.of<Wisher>(context)
+    //       .getWishByID(id: wishId)
+    //       .then((wish) => wish['description']);
+    //   // return wish['description'];
+    // }
 
     return SafeArea(
       child: Scaffold(

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 import 'package:wish_pool/screens/add_wish.dart';
 import 'package:wish_pool/screens/profile.dart';
 import 'package:wish_pool/widgets/wishlist_container.dart';
+
+import '../models/wisher.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home';
@@ -10,19 +13,23 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
+    // var test = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       appBar: AppBar(
         leading: Center(
           child: IconButton(
-            onPressed: () =>
-                Navigator.of(context).pushNamed(WisherProfile.routeName),
-            // iconSize: 25,
+            onPressed: () => Navigator.of(context).pushNamed(
+              WisherProfile.routeName,
+              arguments: Provider.of<Wisher>(context, listen: false).name,
+            ),
             color: Colors.amber[100],
             icon: CircleAvatar(
               radius: 25,
               child: Text(
-                user!.email!.substring(0, 1).toUpperCase(),
+                Provider.of<Wisher>(context)
+                    .name!
+                    .substring(0, 1)
+                    .toUpperCase(),
                 style: const TextStyle(
                   color: Colors.black,
                 ),
@@ -41,7 +48,8 @@ class HomeScreen extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(10),
-            child: Text("Welcome ${user.email}"),
+            child: Text("Welcome ${Provider.of<Wisher>(context).name}"),
+            // child: Text("Welcome ${test.email}"),
           ),
           const Expanded(
             child: WishlistContainer(),
