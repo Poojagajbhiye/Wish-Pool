@@ -1,7 +1,3 @@
-import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wish_pool/models/wish.dart';
@@ -14,30 +10,10 @@ class WishlistView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // String wisherId = FirebaseAuth.instance.currentUser!.uid;
-    // CollectionReference wishers =
-    //     FirebaseFirestore.instance.collection('wishers');
     return Consumer<Wisher>(builder: (context, wisher, _) {
-      // return FutureBuilder<DocumentSnapshot>(
-      //     future: wishers.doc(wisherId).get(),
-      //     builder: (BuildContext context,
-      //         AsyncSnapshot<DocumentSnapshot> snapshot) {
-      //       if (snapshot.hasError) {
-      //         return const Text("Something went wrong");
-      //       }
-
-      //       if (snapshot.hasData && !snapshot.data!.exists) {
-      //         return const Text("Document does not exist");
-      //       }
-
-      //       if (snapshot.connectionState == ConnectionState.done) {
-      //         Map<String, dynamic> wisherDetails =
-      //             snapshot.data!.data() as Map<String, dynamic>;
-      //         var wishes = wisherDetails['wishes'];
       return ListView.builder(
         itemCount: wisher.wishes.length,
         itemBuilder: ((context, index) {
-          print(wisher.wishes);
           return Card(
             child: Padding(
               padding: const EdgeInsets.all(10.0),
@@ -78,10 +54,8 @@ class WishlistView extends StatelessWidget {
                         icon: const Icon(
                           Icons.delete,
                         ),
-                        onPressed: () =>
-                            // wishes.remove(wishes.elementAt(index))
-                            wisher.removeWish(
-                                wish: wisher.wishes.elementAt(index)),
+                        onPressed: () => wisher.removeWish(
+                            wish: wisher.wishes.elementAt(index)),
                       ),
                     ],
                   ),
@@ -91,11 +65,6 @@ class WishlistView extends StatelessWidget {
           );
         }),
       );
-    }
-//               return const Center(child: CircularProgressIndicator());
-        );
-//       },
-//     );
-//   }
+    });
   }
 }

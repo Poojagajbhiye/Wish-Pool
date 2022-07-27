@@ -13,7 +13,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var test = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       appBar: AppBar(
         leading: Center(

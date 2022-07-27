@@ -18,14 +18,4 @@ class Wish {
         'title': title,
         'description': description,
       };
-  // String get wishTitle => title;
-  // String get wishDescription => description;
-
-  // set wishTitle(String ttl) => title = ttl;
-  // set wishDescription(String desc) => description = desc;
-
-  // void updateWish(String ttl, String desc) {
-  //   title = ttl;
-  //   description = desc;
-  // }
 }
