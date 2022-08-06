@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:provider/provider.dart';
 import 'package:wish_pool/screens/add_wish.dart';
-import 'package:wish_pool/screens/profile.dart';
+import 'package:wish_pool/widgets/custom_app_bar.dart';
 import 'package:wish_pool/widgets/wishlist_container.dart';
-
-import '../models/wisher.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home';
@@ -13,56 +9,57 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size deviceSize = MediaQuery.of(context).size;
+    final double deviceHeight = deviceSize.height;
+    final double deviceWidth = deviceSize.width;
     return Scaffold(
-      appBar: AppBar(
-        leading: Center(
-          child: IconButton(
-            onPressed: () => Navigator.of(context).pushNamed(
-              WisherProfile.routeName,
-              arguments: Provider.of<Wisher>(context, listen: false).name,
+      body: Padding(
+        padding: EdgeInsets.only(
+          top: deviceHeight * 0.02,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomAppBar(deviceWidth: deviceWidth),
+            const Divider(
+              color: Colors.transparent,
             ),
-            color: Colors.amber[100],
-            icon: CircleAvatar(
-              radius: 25,
+            Padding(
+              padding: const EdgeInsets.all(25),
               child: Text(
-                Provider.of<Wisher>(context)
-                    .name!
-                    .substring(0, 1)
-                    .toUpperCase(),
-                style: const TextStyle(
-                  color: Colors.black,
-                ),
+                'My Wishes',
+                style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: const Color(0xFF015591),
+                    ),
               ),
             ),
-          ),
+            const Expanded(
+              child: WishlistContainer(),
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+          ],
         ),
-        title: const Text("Wish Pool"),
-        actions: [
-          IconButton(
-              onPressed: () => FirebaseAuth.instance.signOut(),
-              icon: const Icon(Icons.logout))
-        ],
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Text("Welcome ${Provider.of<Wisher>(context).name}"),
-            // child: Text("Welcome ${test.email}"),
-          ),
-          const Expanded(
-            child: WishlistContainer(),
-          ),
-        ],
-      ),
-      floatingActionButton: IconButton(
-        icon: const Icon(Icons.add),
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Navigator.pushNamed(
             context,
             AddWish.routeName,
           );
         },
+        label: Text(
+          'ADD WISH',
+          style: Theme.of(context)
+              .textTheme
+              .labelMedium!
+              .copyWith(fontSize: 15, color: Colors.white),
+        ),
+        icon: const Icon(Icons.add),
+        backgroundColor: const Color(0xFF015591),
       ),
     );
   }

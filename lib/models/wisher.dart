@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:wish_pool/models/wish.dart';
 import 'package:wish_pool/services/firebase_services.dart';
+import 'package:wish_pool/themes/theme.dart';
 
 class Wisher with ChangeNotifier {
   String? id;
   String? name;
-  String? picture;
+  Image? picture;
   List<String> friends = [];
   List<Wish> wishes = [];
   bool changeName = false;
@@ -13,11 +15,16 @@ class Wisher with ChangeNotifier {
 
   Future<String?> init([String? newWisherId]) async {
     var allData = await fetchAllData(newWisherId);
-
+    print('allData: $allData');
     if (allData != null) {
       id = allData['id'];
       name = allData['name'];
-      picture = allData['picture'];
+      picture = allData['picture'] == null
+          ? null
+          : Image.network(
+              allData['picture'],
+              fit: BoxFit.cover,
+            );
       wishes = [];
       friends = [];
 
@@ -61,8 +68,8 @@ class Wisher with ChangeNotifier {
       wisherId: id,
       wisherName: name,
       wisherPicture: picture,
-      wishes: wishes,
-      friends: friends,
+      // wishes: wishes,
+      // friends: friends,
     );
     notifyListeners();
   }
@@ -103,10 +110,14 @@ class Wisher with ChangeNotifier {
     notifyListeners();
   }
 
-  void uploadWisherPic() async {
+  Future<void> uploadWisherPic() async {
     var imageFilename = DateTime.now().millisecondsSinceEpoch.toString();
     final path = 'user_pictures/$id/dp/$imageFilename';
-    picture = await updatePictureToDb(path: path);
+    String pictureUrl = await updatePictureToDb(path: path);
+    picture = Image.network(
+      pictureUrl,
+      fit: BoxFit.cover,
+    );
     notifyListeners();
   }
 

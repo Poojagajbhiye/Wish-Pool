@@ -1,6 +1,10 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:wish_pool/app.dart';
 import 'package:wish_pool/utility/utils.dart';
+import 'package:wish_pool/widgets/app_background.dart';
+import 'package:wish_pool/widgets/auth_box.dart';
 
 class ForgotPassword extends StatelessWidget {
   ForgotPassword({Key? key}) : super(key: key);
@@ -25,36 +29,59 @@ class ForgotPassword extends StatelessWidget {
 
         Utils.showSnackBar(
             "Please check email for reseting the password. Do check inside spam as well.");
-        Navigator.of(context).popUntil((route) => route.isFirst);
+        // Navigator.of(context).popUntil((route) => route.isFirst);
       } on FirebaseAuthException catch (e) {
         Utils.showSnackBar(e.message);
         Navigator.of(context).pop();
       }
+
+      navigatorKey.currentState!.popUntil((route) => route.isFirst);
     }
 
-    return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextFormField(
-              controller: _emailController,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.star_border),
-                iconColor: Colors.amber,
-                border: InputBorder.none,
-                labelText: "Email",
+    return AppBackground(
+      child: Scaffold(
+        body: Center(
+          child: AuthBox(
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextFormField(
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        icon: const Icon(Icons.person),
+                        iconColor:
+                            Theme.of(context).inputDecorationTheme.iconColor,
+                        border: Theme.of(context).inputDecorationTheme.border,
+                        labelText: "Email",
+                      ),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (email) =>
+                          email != null && !EmailValidator.validate(email)
+                              ? "Enter a valid mail id."
+                              : null,
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    ElevatedButton(
+                      onPressed: _resetPassword,
+                      child: Text(
+                        "Reset Password",
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelMedium!
+                            .copyWith(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            const SizedBox(
-              height: 40,
-            ),
-            ElevatedButton(
-              onPressed: _resetPassword,
-              child: const Text("Reset Password"),
-            ),
-          ],
+          ),
         ),
       ),
     );

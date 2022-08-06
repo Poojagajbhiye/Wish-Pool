@@ -1,5 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wish_pool/app.dart';
+import 'package:wish_pool/themes/theme.dart';
+import 'package:wish_pool/widgets/app_background.dart';
 
 import '../models/wisher.dart';
 
@@ -10,71 +15,156 @@ class WisherProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final wisher = Provider.of<Wisher>(context);
+    final theme = Provider.of<WishPoolThemeProvider>(context);
     final TextEditingController usernameController = TextEditingController();
 
     return SafeArea(
+      child: AppBackground(
         child: Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Stack(children: [
-            GestureDetector(
-              onTap: () => wisher.uploadWisherPic(),
-              child: Container(
-                height: 300,
-                width: double.infinity,
-                color: Colors.blueGrey,
-                child: wisher.picture != null
-                    ? Image.network(
-                        wisher.picture as String,
-                        fit: BoxFit.contain,
-                      )
-                    : Center(
-                        child: Text(
-                        wisher.name!.substring(0, 1).toUpperCase(),
-                        style:
-                            const TextStyle(color: Colors.black, fontSize: 100),
-                      )),
-              ),
-            ),
-            IconButton(
-              onPressed: () => Navigator.of(context).pop(),
-              icon: const Icon(Icons.arrow_back),
-            ),
-          ]),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: wisher.changeName
-                ? [
-                    Flexible(
-                      child: TextField(
-                        controller: usernameController,
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Stack(children: [
+                  GestureDetector(
+                    onTap: () async {
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (context) => const Center(
+                          child: CircularProgressIndicator(),
                         ),
-                      ),
+                      );
+                      await wisher.uploadWisherPic();
+                      navigatorKey.currentState!.pop();
+                    },
+                    child: Container(
+                      height: 300,
+                      width: double.infinity,
+                      color: Colors.blueGrey,
+                      child: wisher.picture ??
+                          Center(
+                            child: Text(
+                              wisher.name!.substring(0, 1).toUpperCase(),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 100),
+                            ),
+                          ),
                     ),
-                    IconButton(
-                      onPressed: () => wisher.updateWisherName(
-                        usernameController.text.trim(),
+                  ),
+                  IconButton(
+                    color: Theme.of(context).primaryIconTheme.color,
+                    onPressed: () => Navigator.of(context).pop(),
+                    icon: const Icon(Icons.arrow_back),
+                  ),
+                ]),
+                const SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: wisher.changeName
+                            ? [
+                                Flexible(
+                                  child: TextField(
+                                    controller: usernameController,
+                                    style:
+                                        Theme.of(context).textTheme.labelMedium,
+                                  ),
+                                ),
+                                IconButton(
+                                  color:
+                                      Theme.of(context).primaryIconTheme.color,
+                                  onPressed: () => wisher.updateWisherName(
+                                    usernameController.text.trim(),
+                                  ),
+                                  icon: const Icon(
+                                    Icons.edit_attributes,
+                                  ),
+                                )
+                              ]
+                            : [
+                                Text(
+                                  wisher.name!,
+                                  style:
+                                      Theme.of(context).textTheme.labelMedium,
+                                ),
+                                IconButton(
+                                  color:
+                                      Theme.of(context).primaryIconTheme.color,
+                                  onPressed: () =>
+                                      wisher.changeWisherNameToggle(),
+                                  icon: const Icon(Icons.edit),
+                                ),
+                              ],
                       ),
-                      icon: const Icon(Icons.edit_attributes),
-                    )
-                  ]
-                : [
-                    Text(wisher.name!,
-                        style: const TextStyle(color: Colors.black)),
-                    IconButton(
-                      onPressed: () => wisher.changeWisherNameToggle(),
-                      icon: const Icon(Icons.edit),
-                    ),
-                  ],
-          )
-        ],
+                      const Divider(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Change Theme',
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
+                          IconButton(
+                            color: Theme.of(context).primaryIconTheme.color,
+                            onPressed: () => theme.isLightMode
+                                ? theme.mode = 'dark'
+                                : theme.mode = 'light',
+                            icon: Icon(
+                              theme.isLightMode
+                                  ? Icons.light_mode_rounded
+                                  : Icons.dark_mode_rounded,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Divider(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Feedback',
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
+                          IconButton(
+                              color: Theme.of(context).primaryIconTheme.color,
+                              onPressed: () {},
+                              icon: const Icon(Icons.rate_review))
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Share',
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
+                          IconButton(
+                            color: Theme.of(context).primaryIconTheme.color,
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.share,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
-    ));
+    );
   }
 }
