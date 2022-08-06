@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wish_pool/widgets/add_wish_form.dart';
+import 'package:wish_pool/widgets/app_background.dart';
 
 class AddWish extends StatelessWidget {
   static const routeName = '/add_wish';
@@ -9,17 +10,19 @@ class AddWish extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Add Wish"),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.only(
-            top: 40,
-            left: 20,
-            right: 20,
+      child: AppBackground(
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text("Add Wish"),
           ),
-          child: AddWishForm(),
+          body: Padding(
+            padding: const EdgeInsets.only(
+              top: 40,
+              left: 20,
+              right: 20,
+            ),
+            child: AddWishForm(),
+          ),
         ),
       ),
     );

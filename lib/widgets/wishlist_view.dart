@@ -15,6 +15,13 @@ class WishlistView extends StatelessWidget {
         itemCount: wisher.wishes.length,
         itemBuilder: ((context, index) {
           return Card(
+            color: Colors.purple[100],
+            shadowColor: Colors.black38,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            elevation: 5,
+            clipBehavior: Clip.none,
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Row(

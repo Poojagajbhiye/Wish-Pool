@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wish_pool/widgets/wishlist_view.dart';
+import 'package:wish_pool/widgets/wishlist_wheel_view.dart';
 
 class WishlistContainer extends StatelessWidget {
   const WishlistContainer({Key? key}) : super(key: key);
@@ -8,11 +9,12 @@ class WishlistContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Padding(
       padding: EdgeInsets.only(
-        top: 40,
+        // top: 10,
         left: 20,
         right: 20,
       ),
-      child: WishlistView(),
+      // child: WishlistView(),
+      child: WishlistView1(),
     );
   }
 }

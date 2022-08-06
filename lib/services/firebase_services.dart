@@ -9,19 +9,18 @@ String wisherId = FirebaseAuth.instance.currentUser!.uid;
 
 var wishersCollection = FirebaseFirestore.instance.collection("wishers");
 
-Future<void> addWisherToDb(
-    {required wisherId,
-    required wisherName,
-    required wisherPicture,
-    required wishes,
-    required friends}) async {
+Future<void> addWisherToDb({
+  required wisherId,
+  required wisherName,
+  required wisherPicture,
+}) async {
   final dbWisher = wishersCollection.doc(wisherId);
   final Map<String, dynamic> json = {
     'id': wisherId,
     'name': wisherName,
     'picture': wisherPicture,
-    'friends': friends,
-    'wishes': wishes,
+    'friends': [],
+    'wishes': [],
   };
   await dbWisher.set(json);
 }
