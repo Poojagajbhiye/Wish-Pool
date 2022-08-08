@@ -14,7 +14,6 @@ const List<Color> cardColorsLightTheme = [
 ];
 
 const Color gradientBackground1DarkTheme = Color(0xFF000000);
-// const Color gradientBackground2DarkTheme = Color(0xFF434343);
 const Color primaryColorDarkTheme = Color(0xFF015591);
 const Color primaryColorLightDarkTheme = Color(0xFF5AACEF);
 const List<Color> cardColorsDarkTheme = [

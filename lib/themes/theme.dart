@@ -43,7 +43,8 @@ class WishPoolTheme {
       ),
     ),
     appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.transparent,
+      backgroundColor: gradientBackground1LightTheme,
+      iconTheme: IconThemeData(color: primaryColorLightDarkTheme),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
@@ -106,7 +107,8 @@ class WishPoolTheme {
       ),
     ),
     appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.transparent,
+      backgroundColor: gradientBackground1DarkTheme,
+      iconTheme: IconThemeData(color: primaryColorLightDarkTheme),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(

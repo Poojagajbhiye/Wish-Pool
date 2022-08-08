@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wish_pool/screens/auth/auth.dart';
 import 'package:wish_pool/wish_pool.dart';
-// import 'package:wish_pool/screens/auth/auth.dart';
-
-// import 'package:wish_pool/screens/auth/auth.dart';
-// import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 class IntroScreen extends StatefulWidget {
   static const routeName = '/intro';
@@ -29,7 +24,6 @@ class _IntroScreenState extends State<IntroScreen>
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _controller.dispose();
     super.dispose();
   }
@@ -62,12 +56,14 @@ class _IntroScreenState extends State<IntroScreen>
                   ),
                 ),
                 Positioned(
-                  top: deviceHeight * 0.12,
-                  left: deviceWidth * 0.10,
+                  top: deviceHeight * -0.02,
+                  left: deviceWidth * 0.05,
                   child: SlideTransition(
                     position: _animation,
                     child: Image.asset(
-                      'assets/wish_pool_cloud_new.png',
+                      'assets/app_icon.png',
+                      width: deviceWidth * 0.9,
+                      height: deviceHeight * 0.45,
                     ),
                   ),
                 ),
@@ -89,222 +85,6 @@ class _IntroScreenState extends State<IntroScreen>
                     height: 70,
                   ),
                 ),
-                // Positioned(
-                //   top: 10,
-                //   left: 20,
-                //   child: Image.asset(
-                //     'assets/carrier_cloud.png',
-                //     width: 360,
-                //     height: 360,
-                //   ),
-                // ),
-                // Positioned(
-                //   top: 100,
-                //   left: 80,
-                //   child: Image.asset(
-                //     'assets/wish_pool_250.png',
-                //   ),
-                // ),
-                // Positioned(
-                //   top: 120,
-                //   left: 120,
-                //   child: Column(
-                //     children: [
-                //       Row(
-                //         children: [
-                //           GradientText(
-                //             // 'WiSH\nP       L',
-                //             'W',
-                //             gradientType: GradientType.radial,
-                //             style: const TextStyle(
-                //               fontFamily: 'Nunito',
-                //               fontSize: 50,
-                //               shadows: [
-                //                 Shadow(
-                //                   color: Colors.black,
-                //                   offset: Offset(3, -3),
-                //                 ),
-                //               ],
-                //             ),
-                //             colors: const [
-                //               Color.fromARGB(255, 192, 217, 238),
-                //               Color.fromARGB(255, 113, 168, 213),
-                //               Color.fromARGB(255, 54, 103, 144),
-                //             ],
-                //           ),
-                //           GradientText(
-                //             // 'WiSH\nP       L',
-                //             'I',
-                //             gradientType: GradientType.radial,
-                //             style: const TextStyle(
-                //               fontFamily: 'Nunito',
-                //               fontSize: 50,
-                //               shadows: [
-                //                 Shadow(
-                //                   color: Colors.black,
-                //                   offset: Offset(3, -3),
-                //                 ),
-                //               ],
-                //             ),
-                //             colors: const [
-                //               Color.fromARGB(255, 192, 217, 238),
-                //               Color.fromARGB(255, 113, 168, 213),
-                //               Color.fromARGB(255, 54, 103, 144),
-                //             ],
-                //           ),
-                //           GradientText(
-                //             // 'WiSH\nP       L',
-                //             'S',
-                //             gradientType: GradientType.radial,
-                //             style: const TextStyle(
-                //               fontFamily: 'Nunito',
-                //               fontSize: 50,
-                //               shadows: [
-                //                 Shadow(
-                //                   color: Colors.black,
-                //                   offset: Offset(3, -3),
-                //                 ),
-                //               ],
-                //             ),
-                //             colors: const [
-                //               Color.fromARGB(255, 192, 217, 238),
-                //               Color.fromARGB(255, 113, 168, 213),
-                //               Color.fromARGB(255, 54, 103, 144),
-                //             ],
-                //           ),
-                //           GradientText(
-                //             // 'WiSH\nP       L',
-                //             'H',
-                //             gradientType: GradientType.radial,
-                //             style: const TextStyle(
-                //               fontFamily: 'Nunito',
-                //               fontSize: 50,
-                //               shadows: [
-                //                 Shadow(
-                //                   color: Colors.black,
-                //                   offset: Offset(3, -3),
-                //                 ),
-                //               ],
-                //             ),
-                //             colors: const [
-                //               Color.fromARGB(255, 192, 217, 238),
-                //               Color.fromARGB(255, 113, 168, 213),
-                //               Color.fromARGB(255, 54, 103, 144),
-                //             ],
-                //           ),
-                //         ],
-                //       ),
-                //       Row(
-                //         children: [
-                //           GradientText(
-                //             // 'WiSH\nP       L',
-                //             'P',
-                //             gradientType: GradientType.radial,
-                //             style: const TextStyle(
-                //               fontFamily: 'Nunito',
-                //               fontSize: 50,
-                //               shadows: [
-                //                 Shadow(
-                //                   color: Colors.black,
-                //                   offset: Offset(3, -3),
-                //                 ),
-                //               ],
-                //             ),
-                //             colors: const [
-                //               Color.fromARGB(255, 192, 217, 238),
-                //               Color.fromARGB(255, 113, 168, 213),
-                //               Color.fromARGB(255, 54, 103, 144),
-                //             ],
-                //           ),
-                //           GradientText(
-                //             // 'WiSH\nP       L',
-                //             '       ',
-                //             gradientType: GradientType.radial,
-                //             style: const TextStyle(
-                //               fontFamily: 'Nunito',
-                //               fontSize: 50,
-                //               shadows: [
-                //                 Shadow(
-                //                   color: Colors.black,
-                //                   offset: Offset(2, -2),
-                //                 ),
-                //               ],
-                //             ),
-                //             colors: const [
-                //               Color.fromARGB(255, 246, 248, 250),
-                //               // Color.fromARGB(255, 71, 135, 187),
-                //               Color.fromARGB(255, 54, 103, 144),
-                //             ],
-                //           ),
-                //           GradientText(
-                //             // 'WiSH\nP       L',
-                //             'L',
-                //             gradientType: GradientType.radial,
-                //             style: const TextStyle(
-                //               fontFamily: 'Nunito',
-                //               fontSize: 50,
-                //               shadows: [
-                //                 Shadow(
-                //                   color: Colors.black,
-                //                   offset: Offset(3, -3),
-                //                 ),
-                //               ],
-                //             ),
-                //             colors: const [
-                //               Color.fromARGB(255, 192, 217, 238),
-                //               Color.fromARGB(255, 113, 168, 213),
-                //               Color.fromARGB(255, 54, 103, 144),
-                //             ],
-                //           ),
-                //         ],
-                //       ),
-                //     ],
-                //   ),
-                //   // child: Text(
-                //   //   'WiSH\nP       L',
-                //   //   textAlign: TextAlign.center,
-                //   //   style: TextStyle(
-                //   //     color: Color(0xFF59A7E8),
-                //   //     fontFamily: 'Nunito',
-                //   //     fontSize: 50,
-                //   //   ),
-                //   // ),
-                // ),
-                // Positioned(
-                //   top: 220,
-                //   left: 90,
-                //   child: Image.asset(
-                //     'assets/cloud1_svg.png',
-                //     width: 50,
-                //     height: 50,
-                //   ),
-                // ),
-                // Positioned(
-                //   top: 195,
-                //   left: 155,
-                //   child: Image.asset(
-                //     'assets/shooting_star.png',
-                //     width: 50,
-                //     height: 50,
-                //   ),
-                // ),
-                // Positioned(
-                //   top: 195,
-                //   right: 140,
-                //   child: Image.asset(
-                //     'assets/shooting_star.png',
-                //     width: 50,
-                //     height: 50,
-                //   ),
-                // ),
-                // const Positioned(
-                //     top: 129,
-                //     left: 187,
-                //     child: Icon(
-                //       Icons.favorite_rounded,
-                //       color: Colors.red,
-                //       size: 17,
-                //     )),
               ],
             ),
           ),

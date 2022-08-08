@@ -33,11 +33,12 @@ class AddWishForm extends StatelessWidget {
       child: Column(
         children: [
           TextFormField(
-            maxLength: 25,
+            maxLength: 20,
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   fontSize: 18,
                   fontStyle: FontStyle.normal,
                 ),
+            textCapitalization: TextCapitalization.sentences,
             controller: _titleController,
             onSaved: (value) {
               title = value!;
@@ -59,12 +60,13 @@ class AddWishForm extends StatelessWidget {
             height: 10,
           ),
           TextFormField(
-            maxLength: 130,
+            maxLength: 100,
             maxLines: 3,
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   fontSize: 18,
                   fontStyle: FontStyle.normal,
                 ),
+            textCapitalization: TextCapitalization.sentences,
             controller: _descriptionController,
             onSaved: (value) {
               description = value!;

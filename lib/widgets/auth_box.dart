@@ -10,7 +10,6 @@ class AuthBox extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(25),
       height: deviceHeight * 0.55,
-      // width: 400,
       decoration: BoxDecoration(
         boxShadow: const [
           BoxShadow(

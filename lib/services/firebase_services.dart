@@ -3,22 +3,19 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 String wisherId = FirebaseAuth.instance.currentUser!.uid;
 
 var wishersCollection = FirebaseFirestore.instance.collection("wishers");
 
-Future<void> addWisherToDb({
-  required wisherId,
-  required wisherName,
-  required wisherPicture,
-}) async {
+Future<void> addWisherToDb({required wisherId, required wisherName}) async {
   final dbWisher = wishersCollection.doc(wisherId);
   final Map<String, dynamic> json = {
     'id': wisherId,
     'name': wisherName,
-    'picture': wisherPicture,
+    'picture': null,
     'friends': [],
     'wishes': [],
   };
@@ -67,7 +64,12 @@ Future<String> updatePictureToDb({required path}) async {
   PickedFile? imageFile =
       // ignore: invalid_use_of_visible_for_testing_member
       await ImagePicker.platform.pickImage(source: ImageSource.gallery);
-  final file = File(imageFile!.path);
+  final croppedFile = await ImageCropper.platform.cropImage(
+    sourcePath: imageFile!.path,
+    aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+  );
+
+  final file = File(croppedFile!.path);
   UploadTask uploadTask = firebaseStorageRef.putFile(file);
   var storageTaskSnapshot = await uploadTask.whenComplete((() => null));
   var downloadUrl = await storageTaskSnapshot.ref.getDownloadURL();
@@ -86,4 +88,15 @@ Future<void> updateWishToDb({
   await dbWisher.update({
     'wishes': FieldValue.arrayUnion([wish]),
   });
+}
+
+Future<void> removePictureFromDb({required path}) async {
+  final dbWisher = wishersCollection.doc(wisherId);
+  await dbWisher.update({
+    'picture': null,
+  });
+
+  final Reference firebaseStorageRef =
+      FirebaseStorage.instance.ref().child(path);
+  firebaseStorageRef.delete();
 }

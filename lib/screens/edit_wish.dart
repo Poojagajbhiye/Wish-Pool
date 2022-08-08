@@ -34,7 +34,10 @@ class EditWish extends StatelessWidget {
       child: AppBackground(
         child: Scaffold(
           appBar: AppBar(
-            title: const Text("Edit Wish"),
+            title: Text(
+              "Edit Wish",
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
           ),
           body: Padding(
             padding: const EdgeInsets.only(
@@ -47,12 +50,13 @@ class EditWish extends StatelessWidget {
               child: Column(
                 children: [
                   TextFormField(
-                    maxLength: 25,
+                    maxLength: 20,
                     initialValue: wish.title,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontSize: 18,
                           fontStyle: FontStyle.normal,
                         ),
+                    textCapitalization: TextCapitalization.sentences,
                     onSaved: (value) {
                       title = value!;
                     },
@@ -76,13 +80,14 @@ class EditWish extends StatelessWidget {
                     height: 10,
                   ),
                   TextFormField(
-                    maxLength: 130,
+                    maxLength: 100,
                     maxLines: 3,
                     initialValue: wish.description,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontSize: 18,
                           fontStyle: FontStyle.normal,
                         ),
+                    textCapitalization: TextCapitalization.sentences,
                     onSaved: (value) {
                       description = value!;
                     },

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:wish_pool/widgets/wishlist_view.dart';
-import 'package:wish_pool/widgets/wishlist_wheel_view.dart';
 
 class WishlistContainer extends StatelessWidget {
   const WishlistContainer({Key? key}) : super(key: key);
@@ -13,8 +12,7 @@ class WishlistContainer extends StatelessWidget {
         left: 20,
         right: 20,
       ),
-      // child: WishlistView(),
-      child: WishlistView1(),
+      child: WishlistView(),
     );
   }
 }

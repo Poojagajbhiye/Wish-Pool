@@ -19,10 +19,8 @@ class WishPool extends StatelessWidget {
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                print('waiting');
                 return Center(
-                  //TODO: Have a Splash screen instead.
-                  child: Image.asset('assets/wish_pool_cloud_new.png'),
+                  child: Image.asset('assets/app_icon.png'),
                 );
               } else if (snapshot.hasError) {
                 return const Center(
@@ -33,15 +31,11 @@ class WishPool extends StatelessWidget {
                     future: Provider.of<Wisher>(context, listen: false)
                         .init(snapshot.data!.uid),
                     builder: (context, futureSnap) {
-                      print('is the problem here?');
-                      print(futureSnap.data);
                       if (futureSnap.hasData) {
                         return const HomeScreen();
                       } else {
                         return Center(
-                          //TODO: Have a Splash screen instead.
-                          // child: CircularProgressIndicator(),
-                          child: Image.asset('assets/wish_pool_cloud_new.png'),
+                          child: Image.asset('assets/app_icon.png'),
                         );
                       }
                     });

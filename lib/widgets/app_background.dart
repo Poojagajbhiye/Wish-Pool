@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wish_pool/themes/theme.dart';
 import '../constants/constants.dart' as app_constants;
-import '../models/wisher.dart';
 
 class AppBackground extends StatelessWidget {
   final Widget child;

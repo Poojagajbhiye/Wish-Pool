@@ -29,7 +29,6 @@ class ForgotPassword extends StatelessWidget {
 
         Utils.showSnackBar(
             "Please check email for reseting the password. Do check inside spam as well.");
-        // Navigator.of(context).popUntil((route) => route.isFirst);
       } on FirebaseAuthException catch (e) {
         Utils.showSnackBar(e.message);
         Navigator.of(context).pop();

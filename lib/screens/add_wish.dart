@@ -13,7 +13,10 @@ class AddWish extends StatelessWidget {
       child: AppBackground(
         child: Scaffold(
           appBar: AppBar(
-            title: const Text("Add Wish"),
+            title: Text(
+              "Add Wish",
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
           ),
           body: Padding(
             padding: const EdgeInsets.only(

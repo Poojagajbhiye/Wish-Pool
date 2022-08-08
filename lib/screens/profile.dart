@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wish_pool/app.dart';
@@ -14,6 +12,9 @@ class WisherProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size deviceSize = MediaQuery.of(context).size;
+    final double deviceHeight = deviceSize.height;
+    final double deviceWidth = deviceSize.width;
     final wisher = Provider.of<Wisher>(context);
     final theme = Provider.of<WishPoolThemeProvider>(context);
     final TextEditingController usernameController = TextEditingController();
@@ -25,39 +26,60 @@ class WisherProfile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Stack(children: [
-                  GestureDetector(
-                    onTap: () async {
-                      showDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (context) => const Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      );
-                      await wisher.uploadWisherPic();
-                      navigatorKey.currentState!.pop();
-                    },
-                    child: Container(
-                      height: 300,
-                      width: double.infinity,
-                      color: Colors.blueGrey,
-                      child: wisher.picture ??
-                          Center(
-                            child: Text(
-                              wisher.name!.substring(0, 1).toUpperCase(),
-                              style: const TextStyle(
-                                  color: Colors.black, fontSize: 100),
-                            ),
+                Stack(
+                  children: [
+                    GestureDetector(
+                      onTap: () async {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (context) => const Center(
+                            child: CircularProgressIndicator(),
                           ),
+                        );
+                        await wisher.uploadWisherPic();
+                        navigatorKey.currentState!.pop();
+                      },
+                      child: Container(
+                        height: deviceHeight * 0.5,
+                        width: double.infinity,
+                        color: Colors.blueGrey,
+                        child: wisher.picture ??
+                            Center(
+                              child: Text(
+                                wisher.name!.substring(0, 1).toUpperCase(),
+                                style: const TextStyle(
+                                    color: Colors.black, fontSize: 100),
+                              ),
+                            ),
+                      ),
                     ),
-                  ),
-                  IconButton(
-                    color: Theme.of(context).primaryIconTheme.color,
-                    onPressed: () => Navigator.of(context).pop(),
-                    icon: const Icon(Icons.arrow_back),
-                  ),
-                ]),
+                    IconButton(
+                      color: Theme.of(context).primaryIconTheme.color,
+                      onPressed: () => Navigator.of(context).pop(),
+                      icon: const Icon(Icons.arrow_back),
+                    ),
+                    Positioned(
+                      left: deviceWidth * 0.35,
+                      bottom: 5,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          (wisher.picture != null)
+                              ? wisher.removeWisherPic()
+                              : null;
+                        },
+                        child: Text(
+                          'Remove Picture',
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    fontStyle: FontStyle.normal,
+                                    color: Colors.white,
+                                  ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 const SizedBox(
                   height: 10,
                 ),

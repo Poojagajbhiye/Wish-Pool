@@ -17,11 +17,13 @@ class CustomAppBar extends StatelessWidget {
           iconSize: deviceWidth * 0.20,
           onPressed: () => Navigator.of(context).pushNamed(
             WisherProfile.routeName,
-            arguments: Provider.of<Wisher>(context, listen: false).name,
+            // arguments: Provider.of<Wisher>(context, listen: false).name,
           ),
-          icon: ClipOval(
-            child: Provider.of<Wisher>(context).picture ??
-                CircleAvatar(
+          icon: (Provider.of<Wisher>(context).picture != null)
+              ? CircleAvatar(
+                  radius: deviceWidth * 0.09,
+                  backgroundImage: Provider.of<Wisher>(context).picture!.image)
+              : CircleAvatar(
                   backgroundColor: Theme.of(context).primaryColor,
                   radius: double.infinity,
                   child: Text(
@@ -35,7 +37,6 @@ class CustomAppBar extends StatelessWidget {
                     ),
                   ),
                 ),
-          ),
         ),
         const SizedBox(
           width: 40,
