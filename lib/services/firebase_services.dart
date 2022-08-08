@@ -16,6 +16,7 @@ Future<void> addWisherToDb({required wisherId, required wisherName}) async {
     'id': wisherId,
     'name': wisherName,
     'picture': null,
+    'picturePath': null,
     'friends': [],
     'wishes': [],
   };
@@ -58,7 +59,16 @@ Future<void> updateNameToDb({required wisherName}) async {
   });
 }
 
-Future<String> updatePictureToDb({required path}) async {
+Future<String> updatePictureToDb({
+  required path,
+  required existingPicPath,
+}) async {
+  if (existingPicPath != null) {
+    final Reference firebaseStorageRef =
+        FirebaseStorage.instance.ref().child(existingPicPath);
+    await firebaseStorageRef.delete();
+  }
+
   final Reference firebaseStorageRef =
       FirebaseStorage.instance.ref().child(path);
   PickedFile? imageFile =
@@ -77,6 +87,7 @@ Future<String> updatePictureToDb({required path}) async {
   final dbWisher = wishersCollection.doc(wisherId);
   await dbWisher.update({
     'picture': picture,
+    'picturePath': path,
   });
   return picture;
 }
@@ -94,6 +105,7 @@ Future<void> removePictureFromDb({required path}) async {
   final dbWisher = wishersCollection.doc(wisherId);
   await dbWisher.update({
     'picture': null,
+    'picturePath': null,
   });
 
   final Reference firebaseStorageRef =

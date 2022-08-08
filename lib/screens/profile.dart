@@ -41,7 +41,7 @@ class WisherProfile extends StatelessWidget {
                         navigatorKey.currentState!.pop();
                       },
                       child: Container(
-                        height: deviceHeight * 0.5,
+                        height: deviceHeight * 0.65,
                         width: double.infinity,
                         color: Colors.blueGrey,
                         child: wisher.picture ??
@@ -142,39 +142,6 @@ class WisherProfile extends StatelessWidget {
                               theme.isLightMode
                                   ? Icons.light_mode_rounded
                                   : Icons.dark_mode_rounded,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Divider(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Feedback',
-                            style: Theme.of(context).textTheme.labelMedium,
-                          ),
-                          IconButton(
-                              color: Theme.of(context).primaryIconTheme.color,
-                              onPressed: () {},
-                              icon: const Icon(Icons.rate_review))
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Share',
-                            style: Theme.of(context).textTheme.labelMedium,
-                          ),
-                          IconButton(
-                            color: Theme.of(context).primaryIconTheme.color,
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.share,
                             ),
                           ),
                         ],

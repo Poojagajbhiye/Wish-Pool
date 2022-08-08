@@ -17,7 +17,6 @@ class CustomAppBar extends StatelessWidget {
           iconSize: deviceWidth * 0.20,
           onPressed: () => Navigator.of(context).pushNamed(
             WisherProfile.routeName,
-            // arguments: Provider.of<Wisher>(context, listen: false).name,
           ),
           icon: (Provider.of<Wisher>(context).picture != null)
               ? CircleAvatar(

@@ -7,7 +7,7 @@ class Wisher with ChangeNotifier {
   String? id;
   String? name;
   Image? picture;
-  String? pictureUrl;
+  String? picturePath;
   List<String> friends = [];
   List<Wish> wishes = [];
   bool changeName = false;
@@ -24,6 +24,7 @@ class Wisher with ChangeNotifier {
               allData['picture'],
               fit: BoxFit.cover,
             );
+      picturePath = allData['picturePath'];
       wishes = [];
       friends = [];
 
@@ -107,8 +108,10 @@ class Wisher with ChangeNotifier {
 
   Future<void> uploadWisherPic() async {
     var imageFilename = DateTime.now().millisecondsSinceEpoch.toString();
-    pictureUrl = 'user_pictures/$id/dp/$imageFilename';
-    final path = await updatePictureToDb(path: pictureUrl);
+    var prevPicPath = picturePath;
+    picturePath = 'user_pictures/$id/dp/$imageFilename';
+    final path = await updatePictureToDb(
+        path: picturePath, existingPicPath: prevPicPath);
     picture = Image.network(
       path,
       fit: BoxFit.cover,
@@ -117,8 +120,8 @@ class Wisher with ChangeNotifier {
   }
 
   Future<void> removeWisherPic() async {
-    removePictureFromDb(path: pictureUrl);
-    pictureUrl = null;
+    removePictureFromDb(path: picturePath);
+    picturePath = null;
     picture = null;
     notifyListeners();
   }
