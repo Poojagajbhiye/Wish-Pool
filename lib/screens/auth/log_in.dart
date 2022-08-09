@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:wish_pool/app.dart';
 import 'package:wish_pool/screens/auth/forgot_password.dart';
 import 'package:wish_pool/utility/utils.dart';
+import 'package:wish_pool/widgets/app_background.dart';
+import 'package:wish_pool/widgets/auth_box.dart';
 
 class LogIn extends StatelessWidget {
   final VoidCallback signUp;
@@ -40,74 +42,97 @@ class LogIn extends StatelessWidget {
       navigatorKey.currentState!.popUntil((route) => route.isFirst);
     }
 
-    return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextFormField(
-              controller: _emailController,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.star_border),
-                iconColor: Colors.amber,
-                border: InputBorder.none,
-                labelText: "Email",
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            TextFormField(
-              controller: _passwordController,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.note),
-                iconColor: Colors.amber,
-                border: InputBorder.none,
-                labelText: "Password",
-              ),
-              obscureText: true,
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            ElevatedButton(
-              onPressed: _logIn,
-              child: const Text("Log In"),
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            GestureDetector(
-              child: Text(
-                "Forgot Password?",
-                style: TextStyle(
-                  decoration: TextDecoration.underline,
-                  color: Theme.of(context).colorScheme.secondary,
+    return AppBackground(
+      child: Scaffold(
+        body: Center(
+          child: AuthBox(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextFormField(
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        icon: const Icon(Icons.person),
+                        iconColor:
+                            Theme.of(context).inputDecorationTheme.iconColor,
+                        border: Theme.of(context).inputDecorationTheme.border,
+                        labelText: "Email",
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
+                      controller: _passwordController,
+                      decoration: InputDecoration(
+                        icon: const Icon(Icons.lock),
+                        iconColor:
+                            Theme.of(context).inputDecorationTheme.iconColor,
+                        border: Theme.of(context).inputDecorationTheme.border,
+                        labelText: "Password",
+                      ),
+                      obscureText: true,
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    ElevatedButton(
+                      onPressed: _logIn,
+                      child: Text(
+                        "Log In",
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelMedium!
+                            .copyWith(color: Colors.white),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    GestureDetector(
+                      child: Text(
+                        "Forgot Password?",
+                        style:
+                            Theme.of(context).textTheme.labelMedium!.copyWith(
+                                  decoration: TextDecoration.underline,
+                                ),
+                      ),
+                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ForgotPassword())),
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        style:
+                            Theme.of(context).textTheme.labelMedium!.copyWith(
+                                  color: Colors.black,
+                                ),
+                        text: "Register?  ",
+                        children: [
+                          TextSpan(
+                            recognizer: TapGestureRecognizer()..onTap = signUp,
+                            text: "Sign Up",
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium!
+                                .copyWith(
+                                  decoration: TextDecoration.underline,
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => ForgotPassword())),
             ),
-            const SizedBox(
-              height: 40,
-            ),
-            RichText(
-              text: TextSpan(
-                style: const TextStyle(color: Colors.black),
-                text: "Register?  ",
-                children: [
-                  TextSpan(
-                    recognizer: TapGestureRecognizer()..onTap = signUp,
-                    text: "Sign Up",
-                    style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        decoration: TextDecoration.underline),
-                  ),
-                ],
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

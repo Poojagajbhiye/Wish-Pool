@@ -1,16 +1,20 @@
-# wish_pool
+# **Wish Pool**
 
-A new Flutter project.
+### *Make a WISH!*
+A *flutter* app which stores a pool of your wishes.  
+Presenting a lively interactive application as a little encouragement towards making your wishes come true.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Wish Pool Screenshots
+<br>
+<img src="assets/readme/intro.jpg" alt="Introduction Screen" width="200" height="400">
+<br>
+<p> <img src="assets/readme/home_with_wishes_light.jpg" alt="Home Screen (No Wishes) (Light Mode)" width="200" height="400">&nbsp&nbsp&nbsp&nbsp
+<img src="assets/readme/home_no_wishes_light.jpg" alt="Home Screen (No Wishes) (Light Mode)" width="200" height="400">
+<br><br>
+<img src="assets/readme/home_with_wishes_dark.jpg" alt="Home Screen (Dark Mode)" width="200" height="400">&nbsp&nbsp&nbsp&nbsp
+<img src="assets/readme/home_no_wishes_dark.jpg" alt="Home Screen (No Wishes) (Dark Mode)" width="200" height="400">
+<br><br>
+<img src="assets/readme/profile_dark.jpg" alt="Profile Screen (Dark Mode)" width="200" height="400">&nbsp&nbsp&nbsp&nbsp
+<img src="assets/readme/profile_light.jpg" alt="Profile Screen (Light Mode)" width="200" height="400"></p>

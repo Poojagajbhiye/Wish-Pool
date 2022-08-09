@@ -33,30 +33,51 @@ class AddWishForm extends StatelessWidget {
       child: Column(
         children: [
           TextFormField(
+            maxLength: 20,
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  fontSize: 18,
+                  fontStyle: FontStyle.normal,
+                ),
+            textCapitalization: TextCapitalization.sentences,
             controller: _titleController,
             onSaved: (value) {
               title = value!;
             },
-            decoration: const InputDecoration(
-              icon: Icon(Icons.star_border),
-              iconColor: Colors.amber,
-              border: InputBorder.none,
-              labelText: "Wish",
+            decoration: InputDecoration(
+              border: Theme.of(context).inputDecorationTheme.border,
+              labelText: "Wish *",
+              labelStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: 18,
+                    color: Theme.of(context).primaryColor,
+                  ),
             ),
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (wishTitle) {
+              return (wishTitle == '') ? 'Please enter your wish.' : null;
+            },
           ),
           const SizedBox(
             height: 10,
           ),
           TextFormField(
+            maxLength: 100,
+            maxLines: 3,
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  fontSize: 18,
+                  fontStyle: FontStyle.normal,
+                ),
+            textCapitalization: TextCapitalization.sentences,
             controller: _descriptionController,
             onSaved: (value) {
               description = value!;
             },
-            decoration: const InputDecoration(
-              icon: Icon(Icons.note),
-              iconColor: Colors.amber,
-              border: InputBorder.none,
+            decoration: InputDecoration(
+              border: Theme.of(context).inputDecorationTheme.border,
               labelText: "Describe your wish...",
+              labelStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: 18,
+                    color: Theme.of(context).primaryColor,
+                  ),
             ),
           ),
           const SizedBox(
@@ -67,13 +88,25 @@ class AddWishForm extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: submit,
-                child: const Text("ADD"),
+                child: Text(
+                  "ADD",
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelMedium!
+                      .copyWith(fontSize: 15, color: Colors.white),
+                ),
               ),
               OutlinedButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: const Text("CANCEL"),
+                child: Text(
+                  "CANCEL",
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelMedium!
+                      .copyWith(fontSize: 15),
+                ),
               ),
             ],
           )

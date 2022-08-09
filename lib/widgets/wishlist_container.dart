@@ -8,7 +8,7 @@ class WishlistContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Padding(
       padding: EdgeInsets.only(
-        top: 40,
+        // top: 10,
         left: 20,
         right: 20,
       ),

@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:wish_pool/models/wish.dart';
 import 'package:wish_pool/services/firebase_services.dart';
 
 class Wisher with ChangeNotifier {
   String? id;
   String? name;
-  String? picture;
+  Image? picture;
+  String? picturePath;
   List<String> friends = [];
   List<Wish> wishes = [];
   bool changeName = false;
@@ -13,11 +15,16 @@ class Wisher with ChangeNotifier {
 
   Future<String?> init([String? newWisherId]) async {
     var allData = await fetchAllData(newWisherId);
-
     if (allData != null) {
       id = allData['id'];
       name = allData['name'];
-      picture = allData['picture'];
+      picture = allData['picture'] == null
+          ? null
+          : Image.network(
+              allData['picture'],
+              fit: BoxFit.cover,
+            );
+      picturePath = allData['picturePath'];
       wishes = [];
       friends = [];
 
@@ -56,13 +63,9 @@ class Wisher with ChangeNotifier {
   }) async {
     id = wisherId;
     name = wisherName;
-
     await addWisherToDb(
       wisherId: id,
       wisherName: name,
-      wisherPicture: picture,
-      wishes: wishes,
-      friends: friends,
     );
     notifyListeners();
   }
@@ -103,20 +106,23 @@ class Wisher with ChangeNotifier {
     notifyListeners();
   }
 
-  void uploadWisherPic() async {
+  Future<void> uploadWisherPic() async {
     var imageFilename = DateTime.now().millisecondsSinceEpoch.toString();
-    final path = 'user_pictures/$id/dp/$imageFilename';
-    picture = await updatePictureToDb(path: path);
+    var prevPicPath = picturePath;
+    picturePath = 'user_pictures/$id/dp/$imageFilename';
+    final path = await updatePictureToDb(
+        path: picturePath, existingPicPath: prevPicPath);
+    picture = Image.network(
+      path,
+      fit: BoxFit.cover,
+    );
     notifyListeners();
   }
 
-  // void addFriend(String newfriend) {
-  //   friends.add(newfriend);
-  //   notifyListeners();
-  // }
-
-  // void addFriends(List<String> newfriends) {
-  //   friends.addAll(newfriends);
-  //   notifyListeners();
-  // }
+  Future<void> removeWisherPic() async {
+    removePictureFromDb(path: picturePath);
+    picturePath = null;
+    picture = null;
+    notifyListeners();
+  }
 }
