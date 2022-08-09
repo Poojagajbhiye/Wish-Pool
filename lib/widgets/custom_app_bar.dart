@@ -67,10 +67,24 @@ class CustomAppBar extends StatelessWidget {
           width: 40,
         ),
         IconButton(
+          iconSize: 60,
           color: Theme.of(context).primaryIconTheme.color,
           onPressed: () => FirebaseAuth.instance.signOut(),
-          icon: const Icon(
-            Icons.logout,
+          icon: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(
+                Icons.logout,
+                size: 20,
+              ),
+              Text(
+                'Log Out',
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontSize: 12,
+                      fontStyle: FontStyle.normal,
+                    ),
+              ),
+            ],
           ),
         ),
       ],
