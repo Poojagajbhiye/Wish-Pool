@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.wish_pool">
+    package="wish.pool.wish_pool">
    <application
         android:label="Wish Pool"
         android:name="${applicationName}"
@@ -35,4 +35,5 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

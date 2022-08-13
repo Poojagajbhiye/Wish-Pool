@@ -1,7 +1,7 @@
 # **Wish Pool**
 
 ### *Make a WISH!*
-A *flutter* app which stores a pool of your wishes.  
+A *flutter* app that stores a pool of your wishes.  
 Presenting a lively interactive application as a little encouragement towards making your wishes come true.
 
 ---
