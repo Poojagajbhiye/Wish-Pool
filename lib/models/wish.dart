@@ -2,6 +2,7 @@ class Wish {
   final String id;
   String? title;
   String? description;
+  // bool fulfilled = false;
 
   Wish({
     required this.id,
@@ -13,5 +14,6 @@ class Wish {
         'id': id,
         'title': title,
         'description': description,
+        // 'fulfilled': fulfilled,
       };
 }

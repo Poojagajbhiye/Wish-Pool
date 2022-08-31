@@ -99,6 +99,14 @@ class Wisher with ChangeNotifier {
     notifyListeners();
   }
 
+  // void fulfillWish({required String wishId}) async {
+  //   final wish = wishes.firstWhere((wish) => wish.id == wishId);
+  //   await removeWishFromDb(wish: wish.toJson());
+  //   wish.fulfilled = true;
+  //   await updateWishToDb(wish: wish.toJson());
+  //   notifyListeners();
+  // }
+
   void updateWisherName(String wisherName) async {
     name = wisherName;
     await updateNameToDb(wisherName: wisherName);
