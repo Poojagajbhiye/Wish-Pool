@@ -17,7 +17,7 @@ jobs:
       with:
         flutter-version: '3.0.2'
     - name: Decode base64 firebase_options
-      run: echo $FIREBASE_OPTIONS | base64 -d > lib/firebase_options.dart
+      run: echo $FIREBASE_OPTIONS | base64 -di > lib/firebase_options.dart
       env:
         FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
     - run: flutter pub get
