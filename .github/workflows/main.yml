@@ -21,7 +21,7 @@ jobs:
       env:
         FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
     - name: Decode base64 upload_keystore
-      run: echo $UPLOAD_KEYSTORE | base64 -di > android/upload-keystore.jks
+      run: echo $UPLOAD_KEYSTORE | base64 -di > android/app/upload-keystore.jks
       env:
         UPLOAD_KEYSTORE: ${{ secrets.UPLOAD_KEYSTORE }}
     - name: Decode base64 signing_key
