@@ -24,14 +24,14 @@ jobs:
       run: echo $SIGNING_KEY | base64 -di > android/key.properties
       env:
         SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
-    - name: Decode base64 google_services
-      run: echo $GOOGLE_SERVICES | base64 -di > android/app/google-services.json
-      env:
-        GOOGLE_SERVICES: ${{ secrets.GOOGLE_SERVICES }}
     - name: Decode base64 upload_keystore
       run: echo $UPLOAD_KEYSTORE | base64 -di > android/upload-keystore.jks
       env:
         UPLOAD_KEYSTORE: ${{ secrets.UPLOAD_KEYSTORE }}
+    - name: Decode base64 google_services
+      run: echo $GOOGLE_SERVICES | base64 -di > android/app/google-services.json
+      env:
+        GOOGLE_SERVICES: ${{ secrets.GOOGLE_SERVICES }}
     - run: flutter pub get
     # - run: flutter test
     - run: flutter build appbundle
