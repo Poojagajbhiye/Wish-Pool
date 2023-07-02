@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Key;
+import 'package:encrypt/encrypt.dart';
 import 'package:wish_pool/models/wish.dart';
 import 'package:wish_pool/services/firebase_services.dart';
 
@@ -12,6 +12,31 @@ class Wisher with ChangeNotifier {
   List<Wish> wishes = [];
   bool changeName = false;
   bool changePicture = false;
+  bool newWishAdded = false;
+
+  final key = Key.fromUtf8('FLnXlzYTJ9O+EdlqBYHHJVf1js8+1M/B');
+  final iv = IV.fromUtf8('zvSJfRoGB0Jtx4m/');
+
+  Wish encryptWish(Wish wish) {
+    final wishEncrypter = Encrypter(AES(key, mode: AESMode.cbc));
+    wish.title = wishEncrypter.encrypt(wish.title!, iv: iv).base64;
+    if (wish.description != "") {
+      wish.description =
+          wishEncrypter.encrypt(wish.description!, iv: iv).base64;
+    }
+    return wish;
+  }
+
+  Wish decryptWish(Wish wish) {
+    final wishDecrypter = Encrypter(AES(key, mode: AESMode.cbc));
+    wish.title =
+        wishDecrypter.decrypt(Encrypted.fromBase64(wish.title!), iv: iv);
+    if (wish.description != "") {
+      wish.description = wishDecrypter
+          .decrypt(Encrypted.fromBase64(wish.description!), iv: iv);
+    }
+    return wish;
+  }
 
   Future<String?> init([String? newWisherId]) async {
     var allData = await fetchAllData(newWisherId);
@@ -29,17 +54,21 @@ class Wisher with ChangeNotifier {
       friends = [];
 
       for (var wish in allData['wishes']) {
-        wishes.add(Wish(
+        Wish wishObj = Wish(
           id: wish['id'].toString(),
-          title: wish['title'].toString(),
+          title: wish['title'],
           description: wish['description'].toString(),
-        ));
+          fulfilled: wish['fulfilled'],
+        );
+        Wish decryptedWish = decryptWish(wishObj);
+        wishes.add(decryptedWish);
       }
 
       for (var friend in allData['friends']) {
         friends.add(friend.toString());
       }
     }
+    newWishAdded = false;
     return id;
   }
 
@@ -51,9 +80,18 @@ class Wisher with ChangeNotifier {
       id: DateTime.now().toString(),
       title: wishTitle,
       description: wishDescription,
+      fulfilled: false,
     );
     wishes.add(wish);
-    await addWishToDb(wish: wish.toJson());
+    Wish wishCopy = Wish(
+      id: wish.id,
+      title: wish.title,
+      description: wish.description,
+      fulfilled: false,
+    );
+    final encryptedWish = encryptWish(wishCopy);
+    await addWishToDb(wish: encryptedWish.toJson());
+    newWishAdded = true;
     notifyListeners();
   }
 
@@ -81,7 +119,7 @@ class Wisher with ChangeNotifier {
   }
 
   void removeWish({required Wish wish}) async {
-    wishes.remove(wish);
+    wishes.remove(encryptWish(wish));
     await removeWishFromDb(wish: wish.toJson());
     notifyListeners();
   }
@@ -92,20 +130,35 @@ class Wisher with ChangeNotifier {
     required String wishDescription,
   }) async {
     final wish = wishes.firstWhere((wish) => wish.id == wishId);
-    await removeWishFromDb(wish: wish.toJson());
+    await removeWishFromDb(wish: encryptWish(wish).toJson());
     wish.title = wishTitle;
     wish.description = wishDescription;
-    await updateWishToDb(wish: wish.toJson());
+    Wish wishCopy = Wish(
+      id: wish.id,
+      title: wish.title,
+      description: wish.description,
+      fulfilled: false,
+    );
+    final encryptedWish = encryptWish(wishCopy);
+    await updateWishToDb(wish: encryptedWish.toJson());
     notifyListeners();
   }
 
-  // void fulfillWish({required String wishId}) async {
-  //   final wish = wishes.firstWhere((wish) => wish.id == wishId);
-  //   await removeWishFromDb(wish: wish.toJson());
-  //   wish.fulfilled = true;
-  //   await updateWishToDb(wish: wish.toJson());
-  //   notifyListeners();
-  // }
+  void fulfillWish({required String wishId}) async {
+    final wish = wishes.firstWhere((wish) => wish.id == wishId);
+    Wish wishCopy = Wish(
+      id: wish.id,
+      title: wish.title,
+      description: wish.description,
+      fulfilled: false,
+    );
+    final encryptedWish = encryptWish(wishCopy);
+    await removeWishFromDb(wish: encryptedWish.toJson());
+    wish.fulfilled = true;
+    wishCopy.fulfilled = true;
+    await updateWishToDb(wish: encryptedWish.toJson());
+    notifyListeners();
+  }
 
   void updateWisherName(String wisherName) async {
     name = wisherName;

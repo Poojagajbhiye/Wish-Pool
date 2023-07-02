@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:wish_pool/app.dart';
 import 'package:wish_pool/utility/utils.dart';
-import 'package:wish_pool/widgets/app_background.dart';
 import 'package:wish_pool/widgets/auth_box.dart';
 
 class ForgotPassword extends StatelessWidget {
@@ -13,7 +12,7 @@ class ForgotPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future<void> _resetPassword() async {
+    Future<void> resetPassword() async {
       showDialog(
         context: context,
         barrierDismissible: false,
@@ -37,52 +36,48 @@ class ForgotPassword extends StatelessWidget {
       navigatorKey.currentState!.popUntil((route) => route.isFirst);
     }
 
-    return AppBackground(
-      child: Scaffold(
-        body: Center(
-          child: AuthBox(
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextFormField(
-                      controller: _emailController,
-                      decoration: InputDecoration(
-                        icon: const Icon(Icons.person),
-                        iconColor:
-                            Theme.of(context).inputDecorationTheme.iconColor,
-                        border: Theme.of(context).inputDecorationTheme.border,
-                        labelText: "Email",
-                      ),
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (email) =>
-                          email != null && !EmailValidator.validate(email)
-                              ? "Enter a valid mail id."
-                              : null,
+    return Scaffold(
+      body: Center(
+        child: AuthBox(
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextFormField(
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      icon: const Icon(Icons.person),
+                      iconColor:
+                          Theme.of(context).inputDecorationTheme.iconColor,
+                      border: Theme.of(context).inputDecorationTheme.border,
+                      labelText: "Email",
                     ),
-                    const SizedBox(
-                      height: 40,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (email) =>
+                        email != null && !EmailValidator.validate(email)
+                            ? "Enter a valid mail id."
+                            : null,
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  ElevatedButton(
+                    onPressed: resetPassword,
+                    child: Text(
+                      "Reset Password",
+                      style: Theme.of(context).textTheme.labelMedium!,
                     ),
-                    ElevatedButton(
-                      onPressed: _resetPassword,
-                      child: Text(
-                        "Reset Password",
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelMedium!
-                            .copyWith(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
         ),
       ),
+      // ),
     );
   }
 }

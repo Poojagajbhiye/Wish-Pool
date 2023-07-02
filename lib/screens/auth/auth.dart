@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wish_pool/screens/auth/log_in.dart';
+import 'package:wish_pool/screens/auth/sign_in.dart';
 import 'package:wish_pool/screens/auth/sign_up.dart';
 
 class Auth extends StatefulWidget {
@@ -19,5 +19,5 @@ class _AuthState extends State<Auth> {
 
   @override
   Widget build(BuildContext context) =>
-      isLogin ? LogIn(toggle) : SignUp(toggle);
+      isLogin ? SignIn(toggle) : SignUp(toggle);
 }

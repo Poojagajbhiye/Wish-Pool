@@ -6,13 +6,19 @@ class WishlistContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(
-        // top: 10,
+    return Container(
+      margin: const EdgeInsets.only(
+        top: 5,
+        bottom: 5,
+      ),
+      padding: const EdgeInsets.only(
         left: 20,
         right: 20,
       ),
-      child: WishlistView(),
+      // child: ChangeNotifierProvider(
+      //     create: (context) => TransitionProvider(),
+      //     child: const WishlistView()),
+      child: const WishlistView(),
     );
   }
 }

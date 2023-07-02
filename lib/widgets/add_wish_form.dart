@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:theme_mode_handler/theme_mode_handler.dart';
 
 import '../models/wisher.dart';
 
@@ -14,7 +15,7 @@ class AddWishForm extends StatelessWidget {
     late String title;
     late String description;
 
-    void submit() {
+    Future<void> submit() async {
       if (!_formKey.currentState!.validate()) {
         return;
       }
@@ -24,6 +25,12 @@ class AddWishForm extends StatelessWidget {
       Provider.of<Wisher>(context, listen: false).addWish(
         wishTitle: title,
         wishDescription: description,
+      );
+      FocusScope.of(context).unfocus();
+      await Future.delayed(
+        const Duration(
+          milliseconds: 100,
+        ),
       );
       Navigator.of(context).pop();
     }
@@ -37,6 +44,10 @@ class AddWishForm extends StatelessWidget {
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   fontSize: 18,
                   fontStyle: FontStyle.normal,
+                  color:
+                      ThemeModeHandler.of(context)!.themeMode == ThemeMode.light
+                          ? const Color(0xFF290139)
+                          : Colors.grey,
                 ),
             textCapitalization: TextCapitalization.sentences,
             controller: _titleController,
@@ -48,7 +59,10 @@ class AddWishForm extends StatelessWidget {
               labelText: "Wish *",
               labelStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
                     fontSize: 18,
-                    color: Theme.of(context).primaryColor,
+                    color: ThemeModeHandler.of(context)!.themeMode ==
+                            ThemeMode.light
+                        ? Theme.of(context).primaryColor
+                        : Colors.grey,
                   ),
             ),
             autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -65,6 +79,10 @@ class AddWishForm extends StatelessWidget {
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   fontSize: 18,
                   fontStyle: FontStyle.normal,
+                  color:
+                      ThemeModeHandler.of(context)!.themeMode == ThemeMode.light
+                          ? const Color(0xFF290139)
+                          : Colors.grey,
                 ),
             textCapitalization: TextCapitalization.sentences,
             controller: _descriptionController,
@@ -72,11 +90,13 @@ class AddWishForm extends StatelessWidget {
               description = value!;
             },
             decoration: InputDecoration(
-              border: Theme.of(context).inputDecorationTheme.border,
               labelText: "Describe your wish...",
               labelStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
                     fontSize: 18,
-                    color: Theme.of(context).primaryColor,
+                    color: ThemeModeHandler.of(context)!.themeMode ==
+                            ThemeMode.light
+                        ? Theme.of(context).primaryColor
+                        : Colors.grey,
                   ),
             ),
           ),
@@ -93,7 +113,7 @@ class AddWishForm extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .labelMedium!
-                      .copyWith(fontSize: 15, color: Colors.white),
+                      .copyWith(fontSize: 15),
                 ),
               ),
               OutlinedButton(
@@ -102,10 +122,13 @@ class AddWishForm extends StatelessWidget {
                 },
                 child: Text(
                   "CANCEL",
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelMedium!
-                      .copyWith(fontSize: 15),
+                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                        fontSize: 15,
+                        color: ThemeModeHandler.of(context)!.themeMode ==
+                                ThemeMode.light
+                            ? Theme.of(context).primaryColor
+                            : Colors.grey,
+                      ),
                 ),
               ),
             ],

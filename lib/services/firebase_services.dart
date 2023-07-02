@@ -74,6 +74,7 @@ Future<String> updatePictureToDb({
   PickedFile? imageFile =
       // ignore: invalid_use_of_visible_for_testing_member
       await ImagePicker.platform.pickImage(source: ImageSource.gallery);
+
   final croppedFile = await ImageCropper.platform.cropImage(
     sourcePath: imageFile!.path,
     aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),

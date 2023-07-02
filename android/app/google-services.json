@@ -7,48 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:822716451331:android:de9b356fcb30d6817c9c36",
-        "android_client_info": {
-          "package_name": "com.example.wish_pool"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "822716451331-s4cg4q6l39t8sc0g36a0i9qj9i6kpi6g.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDlX8kbJXmRStQO7LD7q8ASRI-NrLyX0wU"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "822716451331-s4cg4q6l39t8sc0g36a0i9qj9i6kpi6g.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "822716451331-7a00btebei9356ppchvosjooucdrfkf0.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.wishPool"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:822716451331:android:73e88225d2d140e07c9c36",
         "android_client_info": {
           "package_name": "wish.pool.wish_pool"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "822716451331-qpa3baeg1mm8qgs13r5dtcha82jphel0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "wish.pool.wish_pool",
+            "certificate_hash": "842784a0b503a0bf51ab247a7c35536c59cfab64"
+          }
+        },
         {
           "client_id": "822716451331-s4cg4q6l39t8sc0g36a0i9qj9i6kpi6g.apps.googleusercontent.com",
           "client_type": 3

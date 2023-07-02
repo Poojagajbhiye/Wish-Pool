@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wish_pool/widgets/app_background.dart';
+import 'package:theme_mode_handler/theme_mode_handler.dart';
 
 import '../models/wish.dart';
 import '../models/wisher.dart';
@@ -31,112 +31,128 @@ class EditWish extends StatelessWidget {
     }
 
     return SafeArea(
-      child: AppBackground(
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text(
-              "Edit Wish",
-              style: Theme.of(context).textTheme.labelMedium,
-            ),
+      // child: AppBackground(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Edit Wish",
+            style: Theme.of(context).textTheme.labelMedium,
           ),
-          body: Padding(
-            padding: const EdgeInsets.only(
-              top: 40,
-              left: 20,
-              right: 20,
-            ),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  TextFormField(
-                    maxLength: 20,
-                    initialValue: wish.title,
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 18,
-                          fontStyle: FontStyle.normal,
-                        ),
-                    textCapitalization: TextCapitalization.sentences,
-                    onSaved: (value) {
-                      title = value!;
-                    },
-                    decoration: InputDecoration(
-                      border: Theme.of(context).inputDecorationTheme.border,
-                      labelText: "Wish *",
-                      labelStyle:
-                          Theme.of(context).textTheme.bodySmall!.copyWith(
-                                fontSize: 18,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                    ),
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: (wishTitle) {
-                      return (wishTitle == '')
-                          ? 'Please enter your wish.'
-                          : null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    maxLength: 100,
-                    maxLines: 3,
-                    initialValue: wish.description,
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 18,
-                          fontStyle: FontStyle.normal,
-                        ),
-                    textCapitalization: TextCapitalization.sentences,
-                    onSaved: (value) {
-                      description = value!;
-                    },
-                    decoration: InputDecoration(
-                      border: Theme.of(context).inputDecorationTheme.border,
-                      labelText: "Describe your wish...",
-                      labelStyle:
-                          Theme.of(context).textTheme.bodySmall!.copyWith(
-                                fontSize: 18,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton(
-                        onPressed: updateWish,
-                        child: Text(
-                          "UPDATE",
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelMedium!
-                              .copyWith(fontSize: 15, color: Colors.white),
-                        ),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.only(
+            top: 40,
+            left: 20,
+            right: 20,
+          ),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  maxLength: 20,
+                  initialValue: wish.title,
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        fontSize: 18,
+                        fontStyle: FontStyle.normal,
+                        color: ThemeModeHandler.of(context)!.themeMode ==
+                                ThemeMode.light
+                            ? const Color(0xFF290139)
+                            : Colors.grey,
                       ),
-                      OutlinedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text(
-                          "CANCEL",
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelMedium!
-                              .copyWith(fontSize: 15),
+                  textCapitalization: TextCapitalization.sentences,
+                  onSaved: (value) {
+                    title = value!;
+                  },
+                  decoration: InputDecoration(
+                    border: Theme.of(context).inputDecorationTheme.border,
+                    labelText: "Wish *",
+                    labelStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontSize: 18,
+                          color: ThemeModeHandler.of(context)!.themeMode ==
+                                  ThemeMode.light
+                              ? Theme.of(context).primaryColor
+                              : Colors.grey,
                         ),
+                  ),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (wishTitle) {
+                    return (wishTitle == '') ? 'Please enter your wish.' : null;
+                  },
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  maxLength: 100,
+                  maxLines: 3,
+                  initialValue: wish.description,
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        fontSize: 18,
+                        fontStyle: FontStyle.normal,
+                        color: ThemeModeHandler.of(context)!.themeMode ==
+                                ThemeMode.light
+                            ? const Color(0xFF290139)
+                            : Colors.grey,
                       ),
-                    ],
-                  )
-                ],
-              ),
+                  textCapitalization: TextCapitalization.sentences,
+                  onSaved: (value) {
+                    description = value!;
+                  },
+                  decoration: InputDecoration(
+                    border: Theme.of(context).inputDecorationTheme.border,
+                    labelText: "Describe your wish...",
+                    labelStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontSize: 18,
+                          color: ThemeModeHandler.of(context)!.themeMode ==
+                                  ThemeMode.light
+                              ? Theme.of(context).primaryColor
+                              : Colors.grey,
+                        ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: updateWish,
+                      child: Text(
+                        "UPDATE",
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelMedium!
+                            .copyWith(fontSize: 15),
+                      ),
+                    ),
+                    OutlinedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        "CANCEL",
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelMedium!
+                            .copyWith(
+                              fontSize: 15,
+                              color: ThemeModeHandler.of(context)!.themeMode ==
+                                      ThemeMode.light
+                                  ? Theme.of(context).primaryColor
+                                  : Colors.grey,
+                            ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
         ),
       ),
+      // ),
     );
   }
 }

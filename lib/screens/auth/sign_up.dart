@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:wish_pool/app.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:wish_pool/utility/utils.dart';
-import 'package:wish_pool/widgets/app_background.dart';
 import 'package:wish_pool/widgets/auth_box.dart';
 
 import '../../models/wisher.dart';
@@ -29,7 +28,7 @@ class SignUp extends StatelessWidget {
       );
     }
 
-    Future<void> _signUp() async {
+    Future<void> signUp() async {
       bool isValid = _formKey.currentState!.validate();
       if (!isValid) return;
 
@@ -54,94 +53,89 @@ class SignUp extends StatelessWidget {
       navigatorKey.currentState!.popUntil((route) => route.isFirst);
     }
 
-    return AppBackground(
-      child: Scaffold(
-        body: Center(
-          child: AuthBox(
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextFormField(
-                      controller: _emailController,
-                      decoration: InputDecoration(
-                        icon: const Icon(Icons.person),
-                        iconColor:
-                            Theme.of(context).inputDecorationTheme.iconColor,
-                        border: Theme.of(context).inputDecorationTheme.border,
-                        labelText: "Email",
-                      ),
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (email) =>
-                          email != null && !EmailValidator.validate(email)
-                              ? "Enter a valid mail id."
-                              : null,
+    // return AppBackground(
+    //   child: Scaffold(
+    return Scaffold(
+      body: Center(
+        child: AuthBox(
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextFormField(
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      icon: const Icon(Icons.person),
+                      iconColor:
+                          Theme.of(context).inputDecorationTheme.iconColor,
+                      border: Theme.of(context).inputDecorationTheme.border,
+                      labelText: "Email",
                     ),
-                    const SizedBox(
-                      height: 10,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (email) =>
+                        email != null && !EmailValidator.validate(email)
+                            ? "Enter a valid mail id."
+                            : null,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                    controller: _passwordController,
+                    decoration: InputDecoration(
+                      icon: const Icon(Icons.lock),
+                      iconColor:
+                          Theme.of(context).inputDecorationTheme.iconColor,
+                      border: Theme.of(context).inputDecorationTheme.border,
+                      labelText: "Password",
                     ),
-                    TextFormField(
-                      controller: _passwordController,
-                      decoration: InputDecoration(
-                        icon: const Icon(Icons.lock),
-                        iconColor:
-                            Theme.of(context).inputDecorationTheme.iconColor,
-                        border: Theme.of(context).inputDecorationTheme.border,
-                        labelText: "Password",
-                      ),
-                      obscureText: true,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (value) => value != null && value.length < 6
-                          ? "Password should have more than 6 characters."
-                          : null,
+                    obscureText: true,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) => value != null && value.length < 6
+                        ? "Password should have more than 6 characters."
+                        : null,
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  ElevatedButton(
+                    onPressed: signUp,
+                    child: Text(
+                      "Sign Up",
+                      style: Theme.of(context).textTheme.labelMedium!,
                     ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    ElevatedButton(
-                      onPressed: _signUp,
-                      child: Text(
-                        "Sign Up",
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelMedium!
-                            .copyWith(color: Colors.white),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        style:
-                            Theme.of(context).textTheme.labelMedium!.copyWith(
-                                  color: Colors.black,
-                                ),
-                        text: "Already registered?  ",
-                        children: [
-                          TextSpan(
-                            recognizer: TapGestureRecognizer()..onTap = logIn,
-                            text: "Log In",
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelMedium!
-                                .copyWith(
-                                  decoration: TextDecoration.underline,
-                                ),
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                            color: Colors.black,
                           ),
-                        ],
-                      ),
+                      text: "Already registered?  ",
+                      children: [
+                        TextSpan(
+                          recognizer: TapGestureRecognizer()..onTap = logIn,
+                          text: "Log In",
+                          style:
+                              Theme.of(context).textTheme.labelMedium!.copyWith(
+                                    decoration: TextDecoration.underline,
+                                  ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
         ),
       ),
+      // ),
     );
   }
 }
