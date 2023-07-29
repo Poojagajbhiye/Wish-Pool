@@ -40,7 +40,10 @@ class WishCard extends StatelessWidget {
           Positioned(
             right: 0,
             bottom: 0,
-            child: Image.asset("assets/wishing_star.png"),
+            child: Image.asset(
+              "assets/wishing_star.png",
+              scale: 2,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(

@@ -7,7 +7,10 @@ class NoWishes extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Image.asset('assets/empty_wishes.png'),
+        Image.asset(
+          'assets/empty_wishes.png',
+          scale: 2,
+        ),
         Text(
           'No wishes yet',
           style: Theme.of(context).textTheme.labelMedium!.copyWith(
