@@ -15,9 +15,6 @@ class WishlistContainer extends StatelessWidget {
         left: 20,
         right: 20,
       ),
-      // child: ChangeNotifierProvider(
-      //     create: (context) => TransitionProvider(),
-      //     child: const WishlistView()),
       child: const WishlistView(),
     );
   }

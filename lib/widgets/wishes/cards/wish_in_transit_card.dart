@@ -1,3 +1,4 @@
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
@@ -9,8 +10,12 @@ import '../../../models/wisher.dart';
 
 class WishInTransitCard extends StatelessWidget {
   final Function flipperFunction;
+  final Function removeCardHighlightOverlay;
+  final ConfettiController controllerCenter;
   const WishInTransitCard({
     required this.flipperFunction,
+    required this.removeCardHighlightOverlay,
+    required this.controllerCenter,
     super.key,
   });
 
@@ -21,13 +26,7 @@ class WishInTransitCard extends StatelessWidget {
         Provider.of<TransitionProvider>(context);
 
     Color getCardColor() {
-      ThemeMode providerTheme =
-          Provider.of<WishPoolThemeProvider>(context).themeMode;
-      ThemeMode managerTheme = ThemeModeHandler.of(context)!.themeMode;
-      if (providerTheme == ThemeMode.light && managerTheme == ThemeMode.light) {
-        return (cardColorsLightTheme.toList()..shuffle()).first;
-      }
-      return const Color(0xFF8D9EC7);
+      return (cardColorsLightTheme.toList()..shuffle()).first;
     }
 
     return Card(
@@ -83,6 +82,7 @@ class WishInTransitCard extends StatelessWidget {
                     OutlinedButton(
                       onPressed: () {
                         transitionProvider.cardHighligthToggle();
+                        removeCardHighlightOverlay();
                       },
                       child: Text(
                         "Undo",
@@ -101,8 +101,9 @@ class WishInTransitCard extends StatelessWidget {
                       ),
                       onPressed: () async {
                         await flipperFunction();
+                        controllerCenter.play();
                         await Future.delayed(
-                          const Duration(milliseconds: 2500),
+                          const Duration(seconds: 6),
                         );
                         wisher.fulfillWish(
                           wishId: wisher.wishes
@@ -110,6 +111,7 @@ class WishInTransitCard extends StatelessWidget {
                               .id,
                         );
                         transitionProvider.cardHighligthToggle();
+                        removeCardHighlightOverlay();
                       },
                       child: Text(
                         "I've had my wish",

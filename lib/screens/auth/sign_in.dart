@@ -41,94 +41,86 @@ class SignIn extends StatelessWidget {
       navigatorKey.currentState!.popUntil((route) => route.isFirst);
     }
 
-    return Scaffold(
-      body: Center(
-        child: AuthBox(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextFormField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      icon: const Icon(Icons.person),
-                      iconColor:
-                          Theme.of(context).inputDecorationTheme.iconColor,
-                      border: Theme.of(context).inputDecorationTheme.border,
-                      labelText: "Email",
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    controller: _passwordController,
-                    decoration: InputDecoration(
-                      icon: const Icon(Icons.lock),
-                      iconColor:
-                          Theme.of(context).inputDecorationTheme.iconColor,
-                      border: Theme.of(context).inputDecorationTheme.border,
-                      labelText: "Password",
-                    ),
-                    obscureText: true,
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  ElevatedButton(
-                    onPressed: signIn,
-                    child: Text(
-                      "Sign In",
-                      style: Theme.of(context).textTheme.labelMedium!,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  GestureDetector(
-                    child: Text(
-                      "Forgot Password?",
+    return AuthBox(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextFormField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                  icon: const Icon(Icons.person),
+                  iconColor: Theme.of(context).inputDecorationTheme.iconColor,
+                  border: Theme.of(context).inputDecorationTheme.border,
+                  labelText: "Email",
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              TextFormField(
+                controller: _passwordController,
+                decoration: InputDecoration(
+                  icon: const Icon(Icons.lock),
+                  iconColor: Theme.of(context).inputDecorationTheme.iconColor,
+                  border: Theme.of(context).inputDecorationTheme.border,
+                  labelText: "Password",
+                ),
+                obscureText: true,
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              ElevatedButton(
+                onPressed: signIn,
+                child: Text(
+                  "Sign In",
+                  style: Theme.of(context).textTheme.labelMedium!,
+                ),
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              GestureDetector(
+                child: Text(
+                  "Forgot Password?",
+                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                        decoration: TextDecoration.underline,
+                        fontSize: 16,
+                      ),
+                ),
+                onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ForgotPassword())),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              RichText(
+                text: TextSpan(
+                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                        color: Colors.black,
+                        fontSize: 18,
+                      ),
+                  text: "Register?  ",
+                  children: [
+                    TextSpan(
+                      recognizer: TapGestureRecognizer()..onTap = signUp,
+                      text: "Sign Up",
                       style: Theme.of(context).textTheme.labelMedium!.copyWith(
                             decoration: TextDecoration.underline,
-                            fontSize: 16,
-                          ),
-                    ),
-                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ForgotPassword())),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                            color: Colors.black,
                             fontSize: 18,
                           ),
-                      text: "Register?  ",
-                      children: [
-                        TextSpan(
-                          recognizer: TapGestureRecognizer()..onTap = signUp,
-                          text: "Sign Up",
-                          style:
-                              Theme.of(context).textTheme.labelMedium!.copyWith(
-                                    decoration: TextDecoration.underline,
-                                    fontSize: 18,
-                                  ),
-                        ),
-                      ],
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
+            ],
           ),
         ),
       ),
-      // ),
     );
   }
 }
