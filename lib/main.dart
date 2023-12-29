@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wish_pool/firebase_options.dart';
+import 'package:wish_pool/models/transition_provider.dart';
 import 'package:wish_pool/services/app_updates.dart';
 
 import 'app.dart';
@@ -36,6 +37,9 @@ Future<void> main() async {
         ),
         ChangeNotifierProvider(
           create: (_) => WishPoolThemeProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => TransitionProvider(),
         ),
       ],
       child: MyApp(

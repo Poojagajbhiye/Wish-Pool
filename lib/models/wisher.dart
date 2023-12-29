@@ -13,9 +13,26 @@ class Wisher with ChangeNotifier {
   bool changeName = false;
   bool changePicture = false;
   bool newWishAdded = false;
+  int wishPercentage = 0;
 
   final key = Key.fromUtf8('FLnXlzYTJ9O+EdlqBYHHJVf1js8+1M/B');
   final iv = IV.fromUtf8('zvSJfRoGB0Jtx4m/');
+
+  int get wishesLength => wishes.length;
+
+  int get wishesFulfilled {
+    int fulfilledWishesCount = 0;
+    for (Wish wish in wishes) {
+      if (wish.fulfilled) {
+        fulfilledWishesCount++;
+      }
+    }
+    return fulfilledWishesCount;
+  }
+
+  calculateWishPercentage() {
+    wishPercentage = ((wishesFulfilled / wishesLength) * 100).floor();
+  }
 
   Wish encryptWish(Wish wish) {
     final wishEncrypter = Encrypter(AES(key, mode: AESMode.cbc));
@@ -38,11 +55,20 @@ class Wisher with ChangeNotifier {
     return wish;
   }
 
+  String getValidatedWishername(String wisherName) {
+    var validatedWisherName = wisherName;
+    if (wisherName.length >= 25) {
+      validatedWisherName = wisherName.split('@')[0];
+    }
+    return validatedWisherName;
+  }
+
   Future<String?> init([String? newWisherId]) async {
     var allData = await fetchAllData(newWisherId);
     if (allData != null) {
       id = allData['id'];
-      name = allData['name'];
+      name = getValidatedWishername(allData['name']);
+      // name = allData['name'];
       picture = allData['picture'] == null
           ? null
           : Image.network(
@@ -69,6 +95,7 @@ class Wisher with ChangeNotifier {
       }
     }
     newWishAdded = false;
+    calculateWishPercentage();
     return id;
   }
 
@@ -92,6 +119,7 @@ class Wisher with ChangeNotifier {
     final encryptedWish = encryptWish(wishCopy);
     await addWishToDb(wish: encryptedWish.toJson());
     newWishAdded = true;
+    calculateWishPercentage();
     notifyListeners();
   }
 
@@ -100,7 +128,7 @@ class Wisher with ChangeNotifier {
     required String wisherName,
   }) async {
     id = wisherId;
-    name = wisherName;
+    name = getValidatedWishername(wisherName);
     await addWisherToDb(
       wisherId: id,
       wisherName: name,
@@ -121,6 +149,7 @@ class Wisher with ChangeNotifier {
   void removeWish({required Wish wish}) async {
     wishes.remove(encryptWish(wish));
     await removeWishFromDb(wish: wish.toJson());
+    calculateWishPercentage();
     notifyListeners();
   }
 
@@ -157,12 +186,13 @@ class Wisher with ChangeNotifier {
     wish.fulfilled = true;
     wishCopy.fulfilled = true;
     await updateWishToDb(wish: encryptedWish.toJson());
+    calculateWishPercentage();
     notifyListeners();
   }
 
   void updateWisherName(String wisherName) async {
-    name = wisherName;
-    await updateNameToDb(wisherName: wisherName);
+    name = getValidatedWishername(wisherName);
+    await updateNameToDb(wisherName: name);
     changeName = !changeName;
     notifyListeners();
   }

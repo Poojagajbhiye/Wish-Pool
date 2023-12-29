@@ -17,7 +17,24 @@ class _AuthState extends State<Auth> {
         isLogin = !isLogin;
       });
 
+  // @override
+  // Widget build(BuildContext context) =>
+  //     isLogin ? SignIn(toggle) : SignUp(toggle);
+
   @override
-  Widget build(BuildContext context) =>
-      isLogin ? SignIn(toggle) : SignUp(toggle);
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/intro_screen_bg.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: isLogin ? SignIn(toggle) : SignUp(toggle),
+        ),
+      ),
+    );
+  }
 }

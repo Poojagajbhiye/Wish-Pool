@@ -5,17 +5,16 @@ import '../constants/constants.dart' as app_constants;
 class WishPoolTheme {
   static final ThemeData appThemeLight = ThemeData(
     primaryColor: const Color(0xFF373064),
-    scaffoldBackgroundColor: const Color(0xFFC6A1AC),
+    // scaffoldBackgroundColor: const Color(0xFFC6A1AC),
+    scaffoldBackgroundColor: const Color(0xFFE1DFEC),
     textTheme: const TextTheme(
-      headlineLarge: TextStyle(
+      headlineSmall: TextStyle(
         fontFamily: 'Nunito',
         fontWeight: FontWeight.w700,
-        fontSize: 75,
         color: Color(0xFF373064),
       ),
       titleLarge: TextStyle(
-        fontFamily: 'Nunito',
-        fontWeight: FontWeight.w400,
+        fontFamily: 'Nunito-Bold',
         color: Colors.white,
       ),
       labelMedium: TextStyle(
@@ -27,12 +26,15 @@ class WishPoolTheme {
       bodySmall: TextStyle(
         fontFamily: 'Nunito',
         fontWeight: FontWeight.w400,
-        fontStyle: FontStyle.italic,
-        color: Colors.white,
+        color: Colors.blueGrey,
       ),
     ),
     appBarTheme: const AppBarTheme(
-      backgroundColor: Color(0xFF373064),
+      // backgroundColor: Color(0xFF373064),
+      backgroundColor: Colors.transparent,
+      shadowColor: Colors.transparent,
+      elevation: 0.0,
+      foregroundColor: Color(0xFF373064),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
@@ -68,14 +70,13 @@ class WishPoolTheme {
   );
 
   static final ThemeData appThemeDark = ThemeData(
-    primaryColor: const Color(0xFF030110),
+    primaryColor: const Color(0xFF024A82),
     scaffoldBackgroundColor: const Color(0xFF030110),
     textTheme: const TextTheme(
-      headlineLarge: TextStyle(
+      headlineSmall: TextStyle(
         fontFamily: 'Nunito',
         fontWeight: FontWeight.w700,
-        fontSize: 75,
-        color: Color(0xFF030110),
+        color: Color(0xFFC5BFE8),
       ),
       titleLarge: TextStyle(
         fontFamily: 'Nunito',
@@ -91,16 +92,20 @@ class WishPoolTheme {
       bodySmall: TextStyle(
         fontFamily: 'Nunito',
         fontWeight: FontWeight.w400,
-        fontStyle: FontStyle.italic,
         color: Colors.grey,
       ),
     ),
     appBarTheme: const AppBarTheme(
-      backgroundColor: Color(0xFF030110),
+      // backgroundColor: Color(0xFF030110),
+      backgroundColor: Colors.transparent,
+      shadowColor: Colors.transparent,
+      elevation: 0.0,
+      foregroundColor: Colors.white,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(const Color(0xFF030110)),
+        backgroundColor:
+            MaterialStateProperty.all(const Color.fromARGB(255, 38, 31, 85)),
         elevation: MaterialStateProperty.all(5),
         shape: MaterialStateProperty.all(
           const RoundedRectangleBorder(
@@ -116,6 +121,11 @@ class WishPoolTheme {
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: ButtonStyle(
+        side: MaterialStateProperty.all(
+          const BorderSide(
+            color: Color.fromARGB(255, 22, 18, 50),
+          ),
+        ),
         shape: MaterialStateProperty.all(
           const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(

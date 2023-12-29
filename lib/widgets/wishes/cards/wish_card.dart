@@ -9,26 +9,31 @@ import '../../../models/wisher.dart';
 
 class WishCard extends StatelessWidget {
   final int index;
+  final Function createCardHighlightOverlay;
+  // final BuildContext cntxt;
   const WishCard({
     required this.index,
+    required this.createCardHighlightOverlay,
+    // required this.cntxt,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     final Wisher wisher = Provider.of<Wisher>(context);
-    Color getCardColor() {
-      ThemeMode providerTheme =
-          Provider.of<WishPoolThemeProvider>(context).themeMode;
-      ThemeMode managerTheme = ThemeModeHandler.of(context)!.themeMode;
-      if (providerTheme == ThemeMode.light && managerTheme == ThemeMode.light) {
-        return (cardColorsLightTheme.toList()..shuffle()).first;
-      }
-      return const Color(0xFF8D9EC7);
-    }
+    // Color getCardColor() {
+    //   ThemeMode providerTheme =
+    //       Provider.of<WishPoolThemeProvider>(context).themeMode;
+    //   ThemeMode managerTheme = ThemeModeHandler.of(context)!.themeMode;
+    //   if (providerTheme == ThemeMode.light && managerTheme == ThemeMode.light) {
+    //     return (cardColorsLightTheme.toList()..shuffle()).first;
+    //   }
+    //   return const Color(0xFF8D9EC7);
+    // }
 
     return Card(
-      color: getCardColor(),
+      // color: getCardColor(),
+      color: const Color(0xFFAFD0D2),
       shadowColor: Colors.black38,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
@@ -78,6 +83,8 @@ class WishCard extends StatelessWidget {
                 WishActions(
                   wisher: wisher,
                   index: index,
+                  createCardHighlightOverlay: createCardHighlightOverlay,
+                  // cntxt: cntxt,
                 ),
               ],
             ),

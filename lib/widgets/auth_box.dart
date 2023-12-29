@@ -11,21 +11,20 @@ class AuthBox extends StatelessWidget {
       margin: const EdgeInsets.all(25),
       height: deviceHeight * 0.55,
       decoration: BoxDecoration(
-        boxShadow: const [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 1,
-            color: Colors.black12,
-          ),
-          BoxShadow(
-            offset: Offset(-2, -2),
-            blurRadius: 1,
-            color: Colors.black12,
-          ),
-        ],
-        borderRadius: BorderRadius.circular(20),
-        color: const Color(0xFFBAC2D9),
-      ),
+          boxShadow: const [
+            BoxShadow(
+              offset: Offset(1, 1),
+              blurRadius: 1,
+              color: Colors.black12,
+            ),
+            BoxShadow(
+              offset: Offset(-2, -2),
+              blurRadius: 1,
+              color: Colors.black12,
+            ),
+          ],
+          borderRadius: BorderRadius.circular(20),
+          color: const Color(0x5CFFFFFF)),
       child: child,
     );
   }
