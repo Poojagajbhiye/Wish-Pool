@@ -31,7 +31,9 @@ class Wisher with ChangeNotifier {
   }
 
   calculateWishPercentage() {
-    wishPercentage = ((wishesFulfilled / wishesLength) * 100).floor();
+    if (wishesLength > 0) {
+      wishPercentage = ((wishesFulfilled / wishesLength) * 100).floor();
+    }
   }
 
   Wish encryptWish(Wish wish) {
