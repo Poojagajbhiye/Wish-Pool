@@ -6,9 +6,13 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).primaryColor,
+      color: const Color(0xFF845B29),
       child: Center(
-        child: Image.asset("assets/splash_screen_icon.png"),
+        child: Image.asset(
+          "assets/wp_logo.png",
+          width: 180,
+          height: 180,
+        ),
       ),
     );
   }

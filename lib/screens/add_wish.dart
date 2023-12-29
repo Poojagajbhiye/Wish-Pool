@@ -8,25 +8,24 @@ class AddWish extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      // child: AppBackground(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "Add Wish",
-            style: Theme.of(context).textTheme.labelMedium,
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Add Wish",
+          style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                color: Theme.of(context).primaryColor,
+              ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.only(
-            top: 40,
-            left: 20,
-            right: 20,
-          ),
-          child: AddWishForm(),
-        ),
+        centerTitle: true,
       ),
-      // ),
+      body: Padding(
+        padding: const EdgeInsets.only(
+          top: 40,
+          left: 20,
+          right: 20,
+        ),
+        child: AddWishForm(),
+      ),
     );
   }
 }

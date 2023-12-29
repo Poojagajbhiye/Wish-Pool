@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
 import 'package:wish_pool/app.dart';
 import 'package:wish_pool/themes/theme.dart';
 import '../models/wisher.dart';
+import '../utility/utils.dart';
 
 class WisherProfile extends StatelessWidget {
   static const routeName = "/profile";
@@ -15,33 +17,25 @@ class WisherProfile extends StatelessWidget {
     final double deviceHeight = deviceSize.height;
     final double deviceWidth = deviceSize.width;
     final wisher = Provider.of<Wisher>(context);
-    final TextEditingController usernameController = TextEditingController();
 
-    return SafeArea(
+    validateUsername(value) {
+      if (value != '' && value.length <= 25) {
+        wisher.updateWisherName(value);
+      } else {
+        Utils.showSnackBar(
+            "Username can't be empty or more than 25 characters.");
+      }
+    }
+
+    return WillPopScope(
+      onWillPop: () async {
+        if (wisher.changeName) wisher.changeWisherNameToggle();
+        return true;
+      },
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: deviceHeight * 0.15,
-          title: Padding(
-            padding: EdgeInsets.only(
-              top: deviceHeight * 0.02,
-            ),
-            child: Column(
-              children: [
-                Text(
-                  "Welcome!",
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: deviceWidth * 0.04,
-                      ),
-                ),
-                Text(
-                  Provider.of<Wisher>(context).name!,
-                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        fontSize: deviceWidth * 0.08,
-                      ),
-                )
-              ],
-            ),
-          ),
+          title: const Text('Profile'),
+          centerTitle: true,
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -65,15 +59,18 @@ class WisherProfile extends StatelessWidget {
                       height: deviceHeight * 0.6,
                       width: double.infinity,
                       color: const Color(0xFFFED478),
-                      child: wisher.picture ??
-                          Center(
-                            child: Text(
-                              wisher.name!.substring(0, 1).toUpperCase(),
-                              style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
-                                  fontSize: 100),
+                      child: Hero(
+                        tag: 'profile_pic',
+                        child: wisher.picture ??
+                            Center(
+                              child: Text(
+                                wisher.name!.substring(0, 1).toUpperCase(),
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor,
+                                    fontSize: 100),
+                              ),
                             ),
-                          ),
+                      ),
                     ),
                   ),
                   Positioned(
@@ -109,25 +106,31 @@ class WisherProfile extends StatelessWidget {
                           ? [
                               Flexible(
                                 child: TextField(
-                                  controller: usernameController,
+                                  autofocus: true,
+                                  decoration: InputDecoration(
+                                    labelText: 'Username',
+                                    suffixIcon: Icon(
+                                      Icons.person_2_rounded,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                  ),
+                                  textCapitalization: TextCapitalization.words,
+                                  onSubmitted: (value) =>
+                                      validateUsername(value),
                                   style:
                                       Theme.of(context).textTheme.labelMedium,
                                 ),
                               ),
-                              IconButton(
-                                color: Theme.of(context).primaryIconTheme.color,
-                                onPressed: () => wisher.updateWisherName(
-                                  usernameController.text.trim(),
-                                ),
-                                icon: const Icon(
-                                  Icons.edit_attributes,
-                                ),
-                              )
                             ]
                           : [
                               Text(
                                 wisher.name!,
-                                style: Theme.of(context).textTheme.labelMedium,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelMedium!
+                                    .copyWith(
+                                      color: Theme.of(context).primaryColor,
+                                    ),
                               ),
                               IconButton(
                                 color: Theme.of(context).primaryIconTheme.color,
@@ -142,7 +145,10 @@ class WisherProfile extends StatelessWidget {
                       children: [
                         Text(
                           'Change Theme',
-                          style: Theme.of(context).textTheme.labelMedium,
+                          style:
+                              Theme.of(context).textTheme.labelMedium!.copyWith(
+                                    color: Theme.of(context).primaryColor,
+                                  ),
                         ),
                         IconButton(
                           color: Theme.of(context).primaryIconTheme.color,
@@ -169,6 +175,28 @@ class WisherProfile extends StatelessWidget {
                         ),
                       ],
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Log Out',
+                          style:
+                              Theme.of(context).textTheme.labelMedium!.copyWith(
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                        ),
+                        IconButton(
+                          color: Theme.of(context).primaryIconTheme.color,
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (_) => const LogOutAlertBox(),
+                            );
+                          },
+                          icon: const Icon(Icons.logout),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -176,6 +204,36 @@ class WisherProfile extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class LogOutAlertBox extends StatelessWidget {
+  const LogOutAlertBox({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      content: const Text('Are you sure you want to log out?'),
+      contentTextStyle: Theme.of(context)
+          .textTheme
+          .labelMedium!
+          .copyWith(color: Colors.black),
+      actions: [
+        TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('No')),
+        TextButton(
+          onPressed: () {
+            FirebaseAuth.instance.signOut();
+            Navigator.of(context).pop();
+            Navigator.of(context).pop();
+          },
+          child: const Text('Yes'),
+        ),
+      ],
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:wish_pool/models/transition_provider.dart';
 // import 'package:wish_pool/models/transition_provider.dart';
 import 'package:wish_pool/screens/add_wish.dart';
 import 'package:wish_pool/widgets/full_view_app_bar.dart';
+import 'package:wish_pool/widgets/wishes/wish_meter.dart';
 import 'package:wish_pool/widgets/wishes/wishlist_container.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,37 +24,28 @@ class _HomeScreenState extends State<HomeScreen> {
     bool inTransit = Provider.of<TransitionProvider>(context).transitionMode;
 
     return Scaffold(
+      appBar: FullViewAppBar(deviceWidth: deviceWidth),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (!inTransit) FullViewAppBar(deviceWidth: deviceWidth),
+          if (!inTransit) const WishMeter(),
           const Expanded(
             child: WishlistContainer(),
-          ),
-          SizedBox(
-            height: 40,
-            child: Container(color: Theme.of(context).primaryColor),
           ),
         ],
       ),
       floatingActionButton: inTransit
           ? null
-          : FloatingActionButton.extended(
+          : FloatingActionButton(
               onPressed: () {
                 Navigator.pushNamed(
                   context,
                   AddWish.routeName,
                 );
               },
-              label: Text(
-                'ADD WISH',
-                style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                      fontSize: 15,
-                    ),
-              ),
-              icon: const Icon(Icons.add),
-              elevation: 0.0,
+              child: Image.asset('assets/starButton.png'),
             ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

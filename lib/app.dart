@@ -46,10 +46,7 @@ class MyApp extends StatelessWidget {
         themeMode: themeMode,
         theme: WishPoolTheme.appThemeLight,
         darkTheme: WishPoolTheme.appThemeDark,
-        home: SafeArea(
-          child: _isFirstTimeUser ? const IntroScreen() : const WishPool(),
-          // child: SplashScreen(),
-        ),
+        home: _isFirstTimeUser ? const IntroScreen() : const WishPool(),
         routes: {
           WishPool.routeName: (context) => const WishPool(),
           HomeScreen.routeName: (context) => const HomeScreen(),

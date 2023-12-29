@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wish_pool/models/transition_provider.dart';
+import 'package:wish_pool/widgets/alert_box.dart';
 
 import '../../models/wish.dart';
 import '../../models/wisher.dart';
@@ -11,6 +12,8 @@ class WishActions extends StatelessWidget {
     Key? key,
     required this.wisher,
     required this.index,
+    required this.createCardHighlightOverlay,
+    // required this.cntxt,
     // required this.cardHightToggle,
     // required this.cardSelection,
     // required this.gotoCard,
@@ -18,6 +21,8 @@ class WishActions extends StatelessWidget {
 
   final Wisher wisher;
   final int index;
+  final Function createCardHighlightOverlay;
+  // final BuildContext cntxt;
   // final Function cardHightToggle;
   // final Function cardSelection;
   // final Function gotoCard;
@@ -26,6 +31,8 @@ class WishActions extends StatelessWidget {
   Widget build(BuildContext context) {
     final TransitionProvider transitionProvider =
         Provider.of<TransitionProvider>(context);
+    final double deviceHeight = MediaQuery.of(context).size.height;
+    final double deviceWidth = MediaQuery.of(context).size.width;
     return Row(
       children: [
         IconButton(
@@ -63,18 +70,25 @@ class WishActions extends StatelessWidget {
               ),
             );
             transitionProvider.selectCard(index);
+            createCardHighlightOverlay(
+              transitionProvider.selectedCard,
+              deviceWidth,
+              deviceHeight,
+              wisher,
+            );
             // cardHightToggle();
             transitionProvider.cardHighligthToggle();
           },
         ),
         IconButton(
-          icon: const Icon(
-            Icons.delete_outline_rounded,
-            color: Colors.red,
-          ),
-          onPressed: () =>
-              wisher.removeWish(wish: wisher.wishes.elementAt(index)),
-        ),
+            icon: const Icon(
+              Icons.delete_outline_rounded,
+              color: Colors.red,
+            ),
+            onPressed: () => showDialog(
+                context: context, builder: (_) => AlertBox(wishIndex: index))
+            // wisher.removeWish(wish: wisher.wishes.elementAt(index)),
+            ),
       ],
     );
   }

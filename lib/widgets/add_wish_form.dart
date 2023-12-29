@@ -90,7 +90,7 @@ class AddWishForm extends StatelessWidget {
               description = value!;
             },
             decoration: InputDecoration(
-              labelText: "Describe your wish...",
+              labelText: "I wish...",
               labelStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
                     fontSize: 18,
                     color: ThemeModeHandler.of(context)!.themeMode ==
@@ -107,6 +107,9 @@ class AddWishForm extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton(
+                style: ButtonStyle(
+                  elevation: MaterialStateProperty.all(0.0),
+                ),
                 onPressed: submit,
                 child: Text(
                   "ADD",
