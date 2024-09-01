@@ -6,7 +6,7 @@ import 'package:wish_pool/utility/utils.dart';
 import 'package:wish_pool/widgets/auth_box.dart';
 
 class ForgotPassword extends StatelessWidget {
-  ForgotPassword({Key? key}) : super(key: key);
+  ForgotPassword({super.key});
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
 

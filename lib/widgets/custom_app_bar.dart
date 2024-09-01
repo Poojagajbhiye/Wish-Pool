@@ -9,10 +9,10 @@ class CustomAppBar extends StatelessWidget {
   final double deviceWidth;
   final double deviceHeight;
   const CustomAppBar({
-    Key? key,
+    super.key,
     required this.deviceWidth,
     required this.deviceHeight,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

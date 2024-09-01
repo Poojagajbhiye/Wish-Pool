@@ -9,7 +9,7 @@ import '../../screens/edit_wish.dart';
 
 class WishActions extends StatelessWidget {
   const WishActions({
-    Key? key,
+    super.key,
     required this.wisher,
     required this.index,
     required this.createCardHighlightOverlay,
@@ -17,7 +17,7 @@ class WishActions extends StatelessWidget {
     // required this.cardHightToggle,
     // required this.cardSelection,
     // required this.gotoCard,
-  }) : super(key: key);
+  });
 
   final Wisher wisher;
   final int index;

@@ -38,9 +38,9 @@ class WishPoolTheme {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(const Color(0xFF373064)),
-        elevation: MaterialStateProperty.all(10),
-        shape: MaterialStateProperty.all(
+        backgroundColor: WidgetStateProperty.all(const Color(0xFF373064)),
+        elevation: WidgetStateProperty.all(10),
+        shape: WidgetStateProperty.all(
           const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(40),
@@ -54,7 +54,7 @@ class WishPoolTheme {
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: ButtonStyle(
-        shape: MaterialStateProperty.all(
+        shape: WidgetStateProperty.all(
           const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(40),
@@ -105,9 +105,9 @@ class WishPoolTheme {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         backgroundColor:
-            MaterialStateProperty.all(const Color.fromARGB(255, 38, 31, 85)),
-        elevation: MaterialStateProperty.all(5),
-        shape: MaterialStateProperty.all(
+            WidgetStateProperty.all(const Color.fromARGB(255, 38, 31, 85)),
+        elevation: WidgetStateProperty.all(5),
+        shape: WidgetStateProperty.all(
           const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(40),
@@ -121,12 +121,12 @@ class WishPoolTheme {
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: ButtonStyle(
-        side: MaterialStateProperty.all(
+        side: WidgetStateProperty.all(
           const BorderSide(
             color: Color.fromARGB(255, 22, 18, 50),
           ),
         ),
-        shape: MaterialStateProperty.all(
+        shape: WidgetStateProperty.all(
           const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(40),

@@ -3,7 +3,7 @@ import 'package:wish_pool/wish_pool.dart';
 
 class IntroScreen extends StatefulWidget {
   static const routeName = '/intro';
-  const IntroScreen({Key? key}) : super(key: key);
+  const IntroScreen({super.key});
 
   @override
   State<IntroScreen> createState() => _IntroScreenState();
@@ -54,8 +54,8 @@ class _IntroScreenState extends State<IntroScreen>
               scale: _animation,
               child: ElevatedButton(
                 style: ButtonStyle(
-                  elevation: MaterialStateProperty.all(10),
-                  shape: MaterialStateProperty.all(const RoundedRectangleBorder(
+                  elevation: WidgetStateProperty.all(10),
+                  shape: WidgetStateProperty.all(const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(40),
                     ),

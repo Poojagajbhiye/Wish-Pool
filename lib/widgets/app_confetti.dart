@@ -200,11 +200,4 @@ class _AppConfettiState extends State<AppConfetti> {
       ),
     );
   }
-
-  Text _display(String text) {
-    return Text(
-      text,
-      style: const TextStyle(color: Colors.white, fontSize: 20),
-    );
-  }
 }

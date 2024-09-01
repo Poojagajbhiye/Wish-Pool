@@ -18,8 +18,8 @@ class MyApp extends StatelessWidget {
   final bool _isFirstTimeUser;
   const MyApp(
     this._isFirstTimeUser, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
