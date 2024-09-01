@@ -8,7 +8,7 @@ class AddWishForm extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey();
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
-  AddWishForm({Key? key}) : super(key: key);
+  AddWishForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +108,7 @@ class AddWishForm extends StatelessWidget {
             children: [
               ElevatedButton(
                 style: ButtonStyle(
-                  elevation: MaterialStateProperty.all(0.0),
+                  elevation: WidgetStateProperty.all(0.0),
                 ),
                 onPressed: submit,
                 child: Text(

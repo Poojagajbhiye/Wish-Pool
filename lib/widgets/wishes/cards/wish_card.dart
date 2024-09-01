@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:theme_mode_handler/theme_mode_handler.dart';
-import 'package:wish_pool/themes/theme.dart';
 import 'package:wish_pool/widgets/wishes/wish_actions.dart';
 
-import '../../../constants/constants.dart' show cardColorsLightTheme;
 import '../../../models/wisher.dart';
 
 class WishCard extends StatelessWidget {

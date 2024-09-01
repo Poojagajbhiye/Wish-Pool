@@ -6,7 +6,7 @@ import '../screens/profile.dart';
 
 class FullViewAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double deviceWidth;
-  const FullViewAppBar({Key? key, required this.deviceWidth}) : super(key: key);
+  const FullViewAppBar({super.key, required this.deviceWidth});
 
   @override
   Size get preferredSize => const Size.fromHeight(60);

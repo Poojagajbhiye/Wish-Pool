@@ -1,7 +1,6 @@
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wish_pool/models/transition_provider.dart';
 import 'package:wish_pool/widgets/app_confetti.dart';
 import 'package:wish_pool/widgets/wishes/cards/fulfilled_wish_card.dart';
 
@@ -14,7 +13,7 @@ import '../../constants/constants.dart' show wishCardSize;
 import 'cards/wish_in_transit_card.dart';
 
 class WishlistView extends StatefulWidget {
-  const WishlistView({Key? key}) : super(key: key);
+  const WishlistView({super.key});
 
   @override
   State<WishlistView> createState() => _WishlistViewState();

@@ -4,7 +4,7 @@ import 'package:wish_pool/widgets/add_wish_form.dart';
 class AddWish extends StatelessWidget {
   static const routeName = '/add_wish';
 
-  const AddWish({Key? key}) : super(key: key);
+  const AddWish({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -5,12 +5,11 @@ import 'package:wish_pool/screens/auth/auth.dart';
 import 'package:wish_pool/screens/home.dart';
 import 'package:wish_pool/screens/splash_screen.dart';
 
-import 'models/transition_provider.dart';
 import 'models/wisher.dart';
 
 class WishPool extends StatelessWidget {
   static const routeName = '/wish_pool';
-  const WishPool({Key? key}) : super(key: key);
+  const WishPool({super.key});
 
   @override
   Widget build(BuildContext context) {
