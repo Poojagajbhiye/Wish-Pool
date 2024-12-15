@@ -17,7 +17,7 @@ class SignUp extends StatelessWidget {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  SignUp(this.logIn, {Key? key}) : super(key: key);
+  SignUp(this.logIn, {super.key});
 
   @override
   Widget build(BuildContext context) {

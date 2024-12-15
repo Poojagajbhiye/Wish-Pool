@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NoWishes extends StatelessWidget {
-  const NoWishes({Key? key}) : super(key: key);
+  const NoWishes({super.key});
 
   @override
   Widget build(BuildContext context) {

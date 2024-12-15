@@ -9,7 +9,7 @@ import '../utility/utils.dart';
 
 class WisherProfile extends StatelessWidget {
   static const routeName = "/profile";
-  const WisherProfile({Key? key}) : super(key: key);
+  const WisherProfile({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -4,7 +4,7 @@ import 'package:wish_pool/screens/auth/sign_up.dart';
 
 class Auth extends StatefulWidget {
   static const routeName = '/auth';
-  const Auth({Key? key}) : super(key: key);
+  const Auth({super.key});
 
   @override
   State<Auth> createState() => _AuthState();

@@ -1,9 +1,7 @@
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:theme_mode_handler/theme_mode_handler.dart';
 import 'package:wish_pool/models/transition_provider.dart';
-import 'package:wish_pool/themes/theme.dart';
 
 import '../../../constants/constants.dart' show cardColorsLightTheme;
 import '../../../models/wisher.dart';
@@ -96,8 +94,8 @@ class WishInTransitCard extends StatelessWidget {
                       width: 20,
                     ),
                     ElevatedButton(
-                      style: const ButtonStyle(
-                        elevation: MaterialStatePropertyAll(0.0),
+                      style: ButtonStyle(
+                        elevation: WidgetStateProperty.all(0.0),
                       ),
                       onPressed: () async {
                         await flipperFunction();

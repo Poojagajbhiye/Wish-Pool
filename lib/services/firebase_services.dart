@@ -71,9 +71,8 @@ Future<String> updatePictureToDb({
 
   final Reference firebaseStorageRef =
       FirebaseStorage.instance.ref().child(path);
-  PickedFile? imageFile =
-      // ignore: invalid_use_of_visible_for_testing_member
-      await ImagePicker.platform.pickImage(source: ImageSource.gallery);
+  XFile? imageFile = await ImagePicker.platform
+      .getImageFromSource(source: ImageSource.gallery);
 
   final croppedFile = await ImageCropper.platform.cropImage(
     sourcePath: imageFile!.path,

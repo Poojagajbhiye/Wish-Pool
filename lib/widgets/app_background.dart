@@ -3,7 +3,7 @@ import '../constants/constants.dart' as app_constants;
 
 class AppBackground extends StatelessWidget {
   final Widget child;
-  const AppBackground({Key? key, required this.child}) : super(key: key);
+  const AppBackground({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {

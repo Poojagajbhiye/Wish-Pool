@@ -9,7 +9,7 @@ class EditWish extends StatelessWidget {
   static const routeName = '/edit_wish';
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  EditWish({Key? key}) : super(key: key);
+  EditWish({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +120,7 @@ class EditWish extends StatelessWidget {
                 children: [
                   ElevatedButton(
                     style: ButtonStyle(
-                      elevation: MaterialStateProperty.all(0.0),
+                      elevation: WidgetStateProperty.all(0.0),
                     ),
                     onPressed: updateWish,
                     child: Text(
