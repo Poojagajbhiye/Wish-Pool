@@ -71,8 +71,8 @@ Future<String> updatePictureToDb({
 
   final Reference firebaseStorageRef =
       FirebaseStorage.instance.ref().child(path);
-  XFile? imageFile = await ImagePicker.platform
-      .getImageFromSource(source: ImageSource.gallery);
+  final ImagePicker picker = ImagePicker();
+  XFile? imageFile = await picker.pickImage(source: ImageSource.gallery);
 
   final croppedFile = await ImageCropper.platform.cropImage(
     sourcePath: imageFile!.path,
