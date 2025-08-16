@@ -190,10 +190,56 @@ class WisherProfile extends StatelessWidget {
                           onPressed: () {
                             showDialog(
                               context: context,
-                              builder: (_) => const LogOutAlertBox(),
+                              builder: (_) => AlertBox(
+                                alertTitle: 'Are you sure you want to log out?',
+                                onConfirmation: () {
+                                  FirebaseAuth.instance.signOut();
+                                  Navigator.of(context).pop();
+                                  Navigator.of(context).pop();
+                                },
+                              ),
                             );
                           },
                           icon: const Icon(Icons.logout),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Delete Account',
+                          style:
+                              Theme.of(context).textTheme.labelMedium!.copyWith(
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                        ),
+                        IconButton(
+                          color: Theme.of(context).primaryIconTheme.color,
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (_) => AlertBox(
+                                alertTitle:
+                                    'Your data will be deleted permatently. Are you sure?',
+                                onConfirmation: () async {
+                                  final user =
+                                      FirebaseAuth.instance.currentUser;
+                                  if (user != null) {
+                                    final String userId = user.uid;
+                                    await wisher.removeWisher(wisherId: userId);
+                                    await user.delete();
+                                    await FirebaseAuth.instance.signOut();
+                                    Navigator.of(context).pop();
+                                    Navigator.of(context).pop();
+                                  } else {
+                                    print('No user is signed in');
+                                  }
+                                },
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.delete_forever),
                         ),
                       ],
                     ),
@@ -208,13 +254,19 @@ class WisherProfile extends StatelessWidget {
   }
 }
 
-class LogOutAlertBox extends StatelessWidget {
-  const LogOutAlertBox({super.key});
+class AlertBox extends StatelessWidget {
+  final String alertTitle;
+  final VoidCallback onConfirmation;
+  const AlertBox({
+    super.key,
+    required this.alertTitle,
+    required this.onConfirmation,
+  });
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: const Text('Are you sure you want to log out?'),
+      content: Text(alertTitle),
       contentTextStyle: Theme.of(context)
           .textTheme
           .labelMedium!
@@ -226,11 +278,7 @@ class LogOutAlertBox extends StatelessWidget {
             },
             child: const Text('No')),
         TextButton(
-          onPressed: () {
-            FirebaseAuth.instance.signOut();
-            Navigator.of(context).pop();
-            Navigator.of(context).pop();
-          },
+          onPressed: onConfirmation,
           child: const Text('Yes'),
         ),
       ],

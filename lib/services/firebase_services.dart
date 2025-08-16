@@ -52,6 +52,11 @@ Future<void> removeWishFromDb({
   });
 }
 
+Future<void> removeWishserFromDb({required String wisherId}) async {
+  final dbWisher = wishersCollection.doc(wisherId);
+  await dbWisher.delete();
+}
+
 Future<void> updateNameToDb({required wisherName}) async {
   final dbWisher = wishersCollection.doc(wisherId);
   await dbWisher.update({

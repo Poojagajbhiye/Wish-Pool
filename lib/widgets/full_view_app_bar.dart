@@ -46,7 +46,7 @@ class FullViewAppBar extends StatelessWidget implements PreferredSizeWidget {
                           Provider.of<Wisher>(context).picture!.image)
                   : CircleAvatar(
                       backgroundColor: const Color(0xFFFED478),
-                      radius: double.infinity,
+                      radius: 25.0,
                       child: Padding(
                         padding: const EdgeInsets.all(2.5),
                         child: Text(
