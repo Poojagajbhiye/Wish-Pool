@@ -155,6 +155,10 @@ class Wisher with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> removeWisher({required String wisherId}) async {
+    await removeWishserFromDb(wisherId: wisherId);
+  }
+
   void updateWish({
     required String wishId,
     required String wishTitle,
